@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Light Site</title>
+  <style>
+    body { font-family: sans-serif; background: #ffffff; color: #333333; margin: 0; padding: 20px; }
+    .header { background: #f0f0f0; padding: 20px; border-bottom: 1px solid #ddd; }
+    h1 { color: #111111; }
+    p { color: #444444; line-height: 1.6; }
+    a { color: #0066cc; }
+    a:visited { color: #663399; }
+    .card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; margin: 12px 0; }
+    .section { background: #f8f9fa; padding: 20px; border-radius: 4px; }
+    input, textarea { background: #ffffff; color: #333; border: 1px solid #ccc; padding: 8px; }
+    button { background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; }
+    table { border-collapse: collapse; width: 100%; }
+    th { background: #f0f0f0; color: #333; padding: 8px; border: 1px solid #ddd; }
+    td { padding: 8px; border: 1px solid #ddd; color: #555; }
+    pre { background: #f4f4f4; color: #333; padding: 12px; border-radius: 4px; }
+    code { background: #f4f4f4; color: #d73a49; padding: 2px 6px; border-radius: 3px; }
+    .highlight-box { background: #fff3cd; color: #856404; padding: 12px; border-radius: 4px; border: 1px solid #ffc107; }
+    .danger-box { background: #f8d7da; color: #721c24; padding: 12px; border-radius: 4px; border: 1px solid #dc3545; }
+    .success-box { background: #d4edda; color: #155724; padding: 12px; border-radius: 4px; border: 1px solid #28a745; }
+    nav { background: #2c3e50; color: white; padding: 10px 20px; display: flex; gap: 20px; }
+    nav a { color: white; text-decoration: none; }
+    nav a:visited { color: white; }
+    footer { background: #f0f0f0; padding: 20px; text-align: center; color: #666; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+  <div class="header">
+    <h1>Test Light Site</h1>
+    <p>This is a standard light-themed website.</p>
+  </div>
+  <div class="section">
+    <div class="card">
+      <h2>Card Title</h2>
+      <p>This card has a white background and should be converted to dark.</p>
+    </div>
+    <div class="card">
+      <h2>Another Card</h2>
+      <p>More content here.</p>
+    </div>
+  </div>
+  <div class="highlight-box">This is a warning/highlight box with yellow background.</div>
+  <div class="danger-box">This is a danger/error box with red background.</div>
+  <div class="success-box">This is a success box with green background.</div>
+  <div class="section">
+    <h2>Form Elements</h2>
+    <input type="text" placeholder="Text input">
+    <br><br>
+    <textarea placeholder="Textarea"></textarea>
+    <br><br>
+    <button>Submit Button</button>
+  </div>
+  <div class="section">
+    <h2>Table</h2>
+    <table>
+      <thead><tr><th>Name</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Row 1</td><td>Data 1</td></tr>
+        <tr><td>Row 2</td><td>Data 2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section">
+    <h2>Code Block</h2>
+    <pre><code>function hello() {
+  console.log("Hello, World!");
+}</code></pre>
+  </div>
+  <div class="section">
+    <h2>Links</h2>
+    <a href="#">Regular Link</a> | <a href="#">Visited Link Simulation</a>
+  </div>
+  <footer>
+    <p>&copy; 2026 Test Site</p>
+  </footer>
+</body>
+</html>

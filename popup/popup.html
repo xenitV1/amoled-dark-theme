@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">A</div>
+      <h1>AMOLED Black</h1>
+    </div>
+
+    <div class="toggle-section">
+      <span class="label">Eklenti Aktif</span>
+      <label class="switch">
+        <input type="checkbox" id="enabled" checked>
+        <span class="slider-toggle"></span>
+      </label>
+    </div>
+
+    <div class="section" id="brightness-section">
+      <div class="section-header">
+        <span class="label">Metin Parlaklığı</span>
+        <span class="value" id="brightness-value">75%</span>
+      </div>
+      <input type="range" id="brightness" min="10" max="100" value="75" class="range-slider">
+    </div>
+
+    <div class="section" id="bg-mode-section">
+      <span class="label">Arka Plan Modu</span>
+      <div class="segmented-control">
+        <button class="seg-btn active" data-value="pure" id="bg-pure">Saf Siyah</button>
+        <button class="seg-btn" data-value="soft" id="bg-soft">Yumuşak</button>
+      </div>
+    </div>
+
+    <div class="section" id="contrast-section">
+      <span class="label">Kontrast Seviyesi</span>
+      <div class="segmented-control">
+        <button class="seg-btn" data-value="low" id="contrast-low">Düşük</button>
+        <button class="seg-btn active" data-value="normal" id="contrast-normal">Normal</button>
+        <button class="seg-btn" data-value="high" id="contrast-high">Yüksek</button>
+      </div>
+    </div>
+
+    <div class="section" id="image-section">
+      <div class="toggle-row">
+        <span class="label">Görsel Filtreleme</span>
+        <label class="switch">
+          <input type="checkbox" id="image-filter">
+          <span class="slider-toggle"></span>
+        </label>
+      </div>
+      <div class="sub-section" id="image-brightness-section" style="display:none;">
+        <div class="section-header">
+          <span class="sub-label">Görsel Parlaklığı</span>
+          <span class="value" id="image-brightness-value">80%</span>
+        </div>
+        <input type="range" id="image-brightness" min="10" max="100" value="80" class="range-slider">
+      </div>
+    </div>
+
+    <div class="section" id="custom-css-section">
+      <span class="label">Özel CSS</span>
+      <textarea id="custom-css" placeholder="Kendi CSS kodunuzu buraya yazın..." rows="4"></textarea>
+    </div>
+
+    <div class="footer">
+      <span class="version">v1.1.0</span>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

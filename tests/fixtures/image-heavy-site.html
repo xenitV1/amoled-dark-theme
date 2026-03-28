@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Heavy Site</title>
+  <style>
+    body { font-family: sans-serif; background: #ffffff; color: #333; margin: 0; padding: 20px; }
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 20px 0; }
+    .gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; }
+    .hero-image { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; background: #eee; }
+    .profile-section { display: flex; gap: 20px; align-items: center; background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+    .profile-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+    .avatar-small { width: 32px; height: 32px; border-radius: 50%; }
+    .avatar-tiny { width: 16px; height: 16px; border-radius: 50%; }
+    .svg-icon { width: 24px; height: 24px; }
+    .notification-badge { width: 8px; height: 8px; background: #ff0000; border-radius: 50%; display: inline-block; }
+  </style>
+</head>
+<body>
+  <h1>Image Test Page</h1>
+  
+  <img class="hero-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='800' height='400' fill='%23ddd'/%3E%3Ctext x='400' y='200' text-anchor='middle' fill='%23999' font-size='24'%3EHero Image%3C/text%3E%3C/svg%3E" alt="Hero">
+  
+  <div class="profile-section">
+    <img class="profile-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23ccc'/%3E%3Ccircle cx='40' cy='30' r='14' fill='%23999'/%3E%3Cellipse cx='40' cy='58' rx='22' ry='16' fill='%23999'/%3E%3C/svg%3E" alt="Profile">
+    <div>
+      <h3 style="margin:0">User Profile</h3>
+      <p style="color:#666;margin:0">Profile photo should NOT be affected</p>
+      <span class="notification-badge"></span>
+    </div>
+  </div>
+  
+  <div class="gallery">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%23e8e8e8'/%3E%3Ctext x='100' y='105' text-anchor='middle' fill='%23aaa' font-size='12'%3E1%3C/text%3E%3C/svg%3E" alt="1">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%23e8e8e8'/%3E%3Ctext x='100' y='105' text-anchor='middle' fill='%23aaa' font-size='12'%3E2%3C/text%3E%3C/svg%3E" alt="2">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%23e8e8e8'/%3E%3Ctext x='100' y='105' text-anchor='middle' fill='%23aaa' font-size='12'%3E3%3C/text%3E%3C/svg%3E" alt="3">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%23e8e8e8'/%3E%3Ctext x='100' y='105' text-anchor='middle' fill='%23aaa' font-size='12'%3E4%3C/text%3E%3C/svg%3E" alt="4">
+  </div>
+  
+  <h3>SVG Icons (should be protected)</h3>
+  <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z" fill="#666"/></svg>
+  <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 3h18v18H3z" fill="none" stroke="#666" stroke-width="2"/></svg>
+</body>
+</html>

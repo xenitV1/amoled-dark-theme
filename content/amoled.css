@@ -1,0 +1,112 @@
+html.amoled-active {
+  --amoled-text-color: #bfbfbf;
+  --amoled-bg: #000000;
+  --amoled-surface: #0a0a0a;
+  --amoled-border: #1a1a1a;
+  --amoled-link: #4dabf7;
+  --amoled-link-visited: #9775fa;
+  color-scheme: dark !important;
+}
+
+html.amoled-active {
+  background-color: var(--amoled-bg) !important;
+  color: var(--amoled-text-color) !important;
+}
+
+html.amoled-active body {
+  background-color: var(--amoled-bg) !important;
+  color: var(--amoled-text-color) !important;
+  color-scheme: dark !important;
+}
+
+html.amoled-active * {
+  color-scheme: dark;
+}
+
+html.amoled-active p,
+html.amoled-active span,
+html.amoled-active div,
+html.amoled-active li,
+html.amoled-active td,
+html.amoled-active th,
+html.amoled-active h1,
+html.amoled-active h2,
+html.amoled-active h3,
+html.amoled-active h4,
+html.amoled-active h5,
+html.amoled-active h6,
+html.amoled-active label,
+html.amoled-active article,
+html.amoled-active section,
+html.amoled-active nav,
+html.amoled-active header,
+html.amoled-active footer,
+html.amoled-active main,
+html.amoled-active aside,
+html.amoled-active blockquote,
+html.amoled-active figcaption,
+html.amoled-active summary,
+html.amoled-active details,
+html.amoled-active dd,
+html.amoled-active dt,
+html.amoled-active small,
+html.amoled-active strong,
+html.amoled-active em,
+html.amoled-active b,
+html.amoled-active i,
+html.amoled-active mark,
+html.amoled-active time,
+html.amoled-active cite,
+html.amoled-active q,
+html.amoled-active address {
+  color: var(--amoled-text-color);
+}
+
+html.amoled-active a {
+  color: var(--amoled-link) !important;
+}
+
+html.amoled-active a:visited {
+  color: var(--amoled-link-visited) !important;
+}
+
+html.amoled-active input,
+html.amoled-active textarea,
+html.amoled-active select {
+  background-color: var(--amoled-surface) !important;
+  color: var(--amoled-text-color) !important;
+  border-color: var(--amoled-border) !important;
+  color-scheme: dark;
+}
+
+html.amoled-active button {
+  color: var(--amoled-text-color);
+}
+
+html.amoled-active table {
+  border-color: var(--amoled-border);
+}
+
+html.amoled-active th {
+  background-color: var(--amoled-surface);
+}
+
+html.amoled-active pre,
+html.amoled-active code {
+  background-color: #080808 !important;
+  color: var(--amoled-text-color) !important;
+}
+
+html.amoled-active ::selection {
+  background-color: #264f78;
+  color: #ffffff;
+}
+
+html.amoled-active ::-webkit-scrollbar { width: 8px; height: 8px; background: #0a0a0a; }
+html.amoled-active ::-webkit-scrollbar-track { background: #0a0a0a; }
+html.amoled-active ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 4px; }
+html.amoled-active ::-webkit-scrollbar-thumb:hover { background: #2a2a2a; }
+
+html.amoled-active hr {
+  border-color: var(--amoled-border);
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gradient & Background Image Site</title>
+  <style>
+    body { font-family: sans-serif; background: #f5f5f5; color: #333; margin: 0; }
+    .gradient-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; margin: 10px; border-radius: 8px; }
+    .gradient-2 { background: linear-gradient(to right, #f093fb 0%, #f5576c 100%); color: white; padding: 40px; margin: 10px; border-radius: 8px; }
+    .gradient-3 { background: radial-gradient(circle, #4facfe 0%, #00f2fe 100%); color: white; padding: 40px; margin: 10px; border-radius: 8px; }
+    .bg-pattern { background-image: repeating-linear-gradient(45deg, #ddd 0px, #ddd 1px, transparent 1px, transparent 10px); padding: 40px; margin: 10px; border-radius: 8px; }
+    .bg-image { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%234facfe'/%3E%3C/svg%3E"); background-size: cover; padding: 40px; margin: 10px; border-radius: 8px; color: white; }
+    .brand-gradient { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); padding: 40px; margin: 10px; border-radius: 8px; color: white; }
+  </style>
+</head>
+<body>
+  <h2 style="padding:20px;">Gradients & Background Images</h2>
+  <p style="padding:0 20px;">All gradients and background-images should be PRESERVED (not flattened to black).</p>
+  
+  <div class="gradient-1">
+    <h3>Linear Gradient 1</h3>
+    <p>Purple gradient — should be preserved</p>
+  </div>
+  
+  <div class="gradient-2">
+    <h3>Linear Gradient 2</h3>
+    <p>Pink gradient — should be preserved</p>
+  </div>
+  
+  <div class="gradient-3">
+    <h3>Radial Gradient</h3>
+    <p>Blue gradient — should be preserved</p>
+  </div>
+  
+  <div class="brand-gradient">
+    <h3>Brand Gradient (Instagram-style)</h3>
+    <p>This gradient MUST be preserved — it's a brand identity element</p>
+  </div>
+  
+  <div class="bg-pattern">
+    <h3>Background Pattern</h3>
+    <p>Repeating gradient pattern — should be preserved</p>
+  </div>
+  
+  <div class="bg-image">
+    <h3>Background Image</h3>
+    <p>SVG background — should be preserved</p>
+  </div>
+</body>
+</html>

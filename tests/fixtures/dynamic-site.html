@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Site (SPA)</title>
+  <style>
+    body { font-family: sans-serif; background: #ffffff; color: #333; margin: 0; padding: 20px; }
+    .item { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; margin: 12px 0; }
+    .item h3 { color: #111; margin: 0 0 8px 0; }
+    .item p { color: #666; margin: 0; }
+    .loader { color: #999; padding: 20px; text-align: center; }
+    .btn { background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+    .btn:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Content Test</h1>
+  <p>Items are loaded dynamically. Extension should process new elements via MutationObserver.</p>
+  <button class="btn" id="add-item">Add Item</button>
+  <div id="feed"></div>
+  
+  <script>
+    let count = 0;
+    document.getElementById('add-item').addEventListener('click', () => {
+      count++;
+      const item = document.createElement('div');
+      item.className = 'item';
+      item.innerHTML = '<h3>Dynamic Item ' + count + '</h3><p>This was added dynamically via JavaScript.</p>';
+      document.getElementById('feed').appendChild(item);
+    });
+    
+    setTimeout(() => {
+      for (let i = 1; i <= 3; i++) {
+        count++;
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.innerHTML = '<h3>Lazy Item ' + count + '</h3><p>Loaded after 1 second delay.</p>';
+        document.getElementById('feed').appendChild(item);
+      }
+    }, 1000);
+    
+    setTimeout(() => {
+      for (let i = 1; i <= 3; i++) {
+        count++;
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.innerHTML = '<h3>Scroll Item ' + count + '</h3><p>Loaded after 3 second delay (infinite scroll simulation).</p>';
+        document.getElementById('feed').appendChild(item);
+      }
+    }, 3000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark" data-dark-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#0d1117">
+  <title>GitHub Mock</title>
+  <style>
+    :root {
+      --bgColor-default: #0d1117;
+      --bgColor-muted: #161b22;
+      --bgColor-inset: #010409;
+      --fgColor-default: #e6edf3;
+      --fgColor-muted: #8b949e;
+      --fgColor-subtle: #6e7681;
+      --borderColor-default: #30363d;
+      --borderColor-muted: #21262d;
+      --bgColor-danger-emphasis: #cf222e;
+      --bgColor-success-emphasis: #1f883d;
+      --fgColor-success: #3fb950;
+      --fgColor-danger: #f85149;
+      --fgColor-attention: #d29922;
+    }
+    body { background: var(--bgColor-default); color: var(--fgColor-default); font-family: -apple-system, sans-serif; margin: 0; }
+    .header { background: var(--bgColor-muted); border-bottom: 1px solid var(--borderColor-default); padding: 12px 20px; display: flex; align-items: center; gap: 16px; }
+    .logo { color: var(--fgColor-default); font-size: 20px; }
+    .search { background: var(--bgColor-inset); border: 1px solid var(--borderColor-default); border-radius: 6px; padding: 5px 12px; color: var(--fgColor-default); width: 300px; }
+    .repo-header { background: var(--bgColor-muted); border: 1px solid var(--borderColor-default); border-radius: 6px; padding: 16px; margin: 20px; }
+    .repo-name { color: var(--fgColor-link, #58a6ff); font-size: 20px; }
+    .repo-desc { color: var(--fgColor-muted); }
+    .file-list { margin: 0 20px; border: 1px solid var(--borderColor-default); border-radius: 6px; }
+    .file-row { display: flex; align-items: center; padding: 8px 16px; border-bottom: 1px solid var(--borderColor-muted); color: var(--fgColor-default); }
+    .file-row:last-child { border-bottom: none; }
+    .file-icon { margin-right: 8px; color: var(--fgColor-muted); }
+    .file-name { flex: 1; }
+    .file-msg { color: var(--fgColor-muted); flex: 2; text-align: right; }
+    
+    .State { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+    .State--open { background: var(--bgColor-success-emphasis); color: white; }
+    .State--closed { background: var(--bgColor-danger-emphasis); color: white; }
+    .State--merged { background: #8250ef; color: white; }
+    
+    .pl-k { color: #ff7b72; }
+    .pl-s { color: #a5d6ff; }
+    .pl-c { color: #8b949e; }
+    .pl-en { color: #79c0ff; }
+    .pl-v { color: #ffa657; }
+    
+    .code-block { background: var(--bgColor-inset); padding: 16px; border-radius: 6px; font-family: monospace; font-size: 13px; margin: 20px; border: 1px solid var(--borderColor-default); }
+    
+    .contrib-grid { display: grid; grid-template-columns: repeat(7, 14px); gap: 3px; margin: 20px; }
+    .contrib-cell { width: 14px; height: 14px; border-radius: 2px; }
+    .contrib-0 { background: #161b22; }
+    .contrib-1 { background: #0e4429; }
+    .contrib-2 { background: #006d32; }
+    .contrib-3 { background: #26a641; }
+    .contrib-4 { background: #39d353; }
+    
+    .diff-add { background: rgba(46, 160, 67, 0.15); color: var(--fgColor-success); padding: 2px 8px; }
+    .diff-remove { background: rgba(248, 81, 73, 0.15); color: var(--fgColor-danger); padding: 2px 8px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🐙</span>
+    <input class="search" type="text" placeholder="Search or jump to...">
+    <span class="State State--open">Open</span>
+    <span class="State State--closed">Closed</span>
+    <span class="State State--merged">Merged</span>
+  </div>
+  
+  <div class="repo-header">
+    <div class="repo-name">owner / repository</div>
+    <p class="repo-desc">A sample repository description for testing dark mode.</p>
+  </div>
+  
+  <div class="code-block">
+    <span class="pl-k">function</span> <span class="pl-en">hello</span>() {
+      <span class="pl-c">// This is a comment</span>
+      <span class="pl-k">const</span> name = <span class="pl-s">"World"</span>;
+      <span class="pl-k">return</span> <span class="pl-s">`Hello, </span><span class="pl-v">${name}</span><span class="pl-s">!`</span>;
+    }
+  </div>
+  
+  <div style="margin: 20px;">
+    <span class="diff-add">+ added line</span><br>
+    <span class="diff-remove">- removed line</span>
+  </div>
+  
+  <div class="file-list">
+    <div class="file-row">
+      <span class="file-icon">📁</span>
+      <span class="file-name">src/</span>
+      <span class="file-msg">feat: add new feature</span>
+    </div>
+    <div class="file-row">
+      <span class="file-icon">📄</span>
+      <span class="file-name">README.md</span>
+      <span class="file-msg">docs: update readme</span>
+    </div>
+    <div class="file-row">
+      <span class="file-icon">📄</span>
+      <span class="file-name">package.json</span>
+      <span class="file-msg">chore: update deps</span>
+    </div>
+  </div>
+  
+  <div class="contrib-grid">
+    <div class="contrib-cell contrib-0"></div>
+    <div class="contrib-cell contrib-1"></div>
+    <div class="contrib-cell contrib-2"></div>
+    <div class="contrib-cell contrib-3"></div>
+    <div class="contrib-cell contrib-4"></div>
+    <div class="contrib-cell contrib-0"></div>
+    <div class="contrib-cell contrib-2"></div>
+    <div class="contrib-cell contrib-3"></div>
+    <div class="contrib-cell contrib-1"></div>
+    <div class="contrib-cell contrib-4"></div>
+    <div class="contrib-cell contrib-2"></div>
+    <div class="contrib-cell contrib-0"></div>
+    <div class="contrib-cell contrib-1"></div>
+    <div class="contrib-cell contrib-3"></div>
+  </div>
+</body>
+</html>

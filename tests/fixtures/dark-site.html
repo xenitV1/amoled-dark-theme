@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dark>
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#000000">
+  <title>Dark Site (Already Dark)</title>
+  <style>
+    :root {
+      --bg-color: #1a1a2e;
+      --text-color: #e0e0e0;
+    }
+    body { background: var(--bg-color); color: var(--text-color); font-family: sans-serif; padding: 20px; }
+    h1 { color: #ffffff; }
+    p { color: #cccccc; }
+    a { color: #4dabf7; }
+    .card { background: #16213e; padding: 20px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Already Dark Site</h1>
+  <p>This site uses the `dark` attribute on HTML. Extension should detect and skip.</p>
+  <div class="card">
+    <h2>Dark Card</h2>
+    <p>Background is already dark (#16213e). Should NOT be modified.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dark>
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#0f0f0f">
+  <title>YouTube Mock</title>
+  <style>
+    :root {
+      --yt-spec-base-background: #0f0f0f;
+      --yt-spec-raised-background: #1a1a1a;
+      --yt-spec-menu-background: #1a1a1a;
+      --yt-spec-text-primary: #f1f1f1;
+      --yt-spec-text-secondary: #aaaaaa;
+      --yt-spec-brand-background-primary: #ff0000;
+      --yt-spec-brand-link: #3ea6ff;
+      --yt-spec-general-background-a: #0f0f0f;
+      --yt-spec-general-background-b: #171717;
+      --yt-spec-general-background-c: #212121;
+    }
+    body { background: var(--yt-spec-base-background); color: var(--yt-spec-text-primary); font-family: Roboto, sans-serif; margin: 0; }
+    .header { background: var(--yt-spec-raised-background); padding: 12px 20px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid #333; }
+    .logo { color: white; font-weight: bold; font-size: 18px; }
+    .search-bar { flex: 1; background: #121212; border: 1px solid #333; border-radius: 20px; padding: 8px 16px; color: var(--yt-spec-text-primary); }
+    .subscribe-btn { background: #cc0000; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 500; }
+    .content { display: flex; }
+    .sidebar { width: 240px; background: var(--yt-spec-general-background-b); padding: 12px; min-height: 500px; }
+    .sidebar-item { padding: 8px 12px; border-radius: 8px; color: var(--yt-spec-text-secondary); cursor: pointer; }
+    .sidebar-item:hover { background: #272727; }
+    .feed { flex: 1; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .video-card { cursor: pointer; }
+    .thumbnail { width: 100%; aspect-ratio: 16/9; background: #272727; border-radius: 12px; }
+    .video-info { display: flex; gap: 12px; padding: 8px 0; }
+    .video-avatar { width: 36px; height: 36px; border-radius: 50%; background: #333; flex-shrink: 0; }
+    .video-title { color: var(--yt-spec-text-primary); font-weight: 500; margin: 0 0 4px 0; font-size: 14px; }
+    .video-meta { color: var(--yt-spec-text-secondary); font-size: 12px; }
+    .chips { display: flex; gap: 8px; padding: 0 20px 16px; overflow-x: auto; }
+    .chip { background: #272727; color: var(--yt-spec-text-primary); padding: 6px 12px; border-radius: 8px; font-size: 13px; white-space: nowrap; }
+    .chip.active { background: #f1f1f1; color: #0f0f0f; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">▶ YouTube</span>
+    <input class="search-bar" type="text" placeholder="Search">
+    <button class="subscribe-btn">Subscribe</button>
+  </div>
+  <div class="chips">
+    <div class="chip active">All</div>
+    <div class="chip">Music</div>
+    <div class="chip">Gaming</div>
+    <div class="chip">Live</div>
+    <div class="chip">News</div>
+  </div>
+  <div class="content">
+    <div class="sidebar">
+      <div class="sidebar-item">Home</div>
+      <div class="sidebar-item">Trending</div>
+      <div class="sidebar-item">Subscriptions</div>
+      <div class="sidebar-item">Library</div>
+    </div>
+    <div class="feed" id="video-feed">
+      <div class="video-card">
+        <div class="thumbnail"></div>
+        <div class="video-info">
+          <div class="video-avatar"></div>
+          <div>
+            <p class="video-title">Video Title 1</p>
+            <p class="video-meta">Channel Name · 1M views · 1 day ago</p>
+          </div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="thumbnail"></div>
+        <div class="video-info">
+          <div class="video-avatar"></div>
+          <div>
+            <p class="video-title">Video Title 2</p>
+            <p class="video-meta">Channel Name · 500K views · 3 days ago</p>
+          </div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="thumbnail"></div>
+        <div class="video-info">
+          <div class="video-avatar"></div>
+          <div>
+            <p class="video-title">Video Title 3</p>
+            <p class="video-meta">Channel Name · 200K views · 1 week ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    setTimeout(() => {
+      const feed = document.getElementById('video-feed');
+      if (feed) {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.innerHTML = `
+          <div class="thumbnail" style="background:#333"></div>
+          <div class="video-info">
+            <div class="video-avatar"></div>
+            <div>
+              <p class="video-title">Dynamically Added Video</p>
+              <p class="video-meta">New Channel · 10K views · Just now</p>
+            </div>
+          </div>
+        `;
+        feed.appendChild(card);
+      }
+    }, 2000);
+  </script>
+</body>
+</html>

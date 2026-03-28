@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "AMOLED Black",
+  "version": "1.1.0",
+  "description": "Tüm sitelere AMOLED siyah tema uygular. Metin parlaklığını, görsel filtreleme ve özel CSS desteği ile göz yormayan bir deneyim sunar.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["content/amoled.css"],
+      "js": ["content/content.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}
