@@ -1,0 +1,47 @@
+{
+  "appDesc": {
+    "message": "Tüm sitelere AMOLED siyah tema uygular. Metin parlaklığını, görsel filtreleme ve özel CSS desteği ile göz yormayan bir deneyim sunar."
+  },
+  "appName": {
+    "message": "AMOLED Black"
+  },
+  "extensionActive": {
+    "message": "Eklenti Aktif"
+  },
+  "textBrightness": {
+    "message": "Metin Parlaklığı"
+  },
+  "bgMode": {
+    "message": "Arka Plan Modu"
+  },
+  "pureBlack": {
+    "message": "Saf Siyah"
+  },
+  "soft": {
+    "message": "Yumuşak"
+  },
+  "contrastLevel": {
+    "message": "Kontrast Seviyesi"
+  },
+  "low": {
+    "message": "Düşük"
+  },
+  "normal": {
+    "message": "Normal"
+  },
+  "high": {
+    "message": "Yüksek"
+  },
+  "imageFiltering": {
+    "message": "Görsel Filtreleme"
+  },
+  "imageBrightness": {
+    "message": "Görsel Parlaklığı"
+  },
+  "customCSS": {
+    "message": "Özel CSS"
+  },
+  "customCSSPlaceholder": {
+    "message": "Kendi CSS kodunuzu buraya yazın..."
+  }
+}

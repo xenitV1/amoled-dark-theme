@@ -5,8 +5,54 @@ const DEFAULTS = {
   imageBrightness: 80,
   customCSS: "",
   bgMode: "pure",
-  contrastLevel: "normal"
+  contrastLevel: "normal",
+  lang: "tr"
 };
+
+const I18N = {
+  en: {
+    extensionActive: "Extension Active",
+    textBrightness: "Text Brightness",
+    bgMode: "Background Mode",
+    pureBlack: "Pure Black",
+    soft: "Soft",
+    contrastLevel: "Contrast Level",
+    low: "Low",
+    normal: "Normal",
+    high: "High",
+    imageFiltering: "Image Filtering",
+    imageBrightness: "Image Brightness",
+    customCSS: "Custom CSS",
+    customCSSPlaceholder: "Write your custom CSS here..."
+  },
+  tr: {
+    extensionActive: "Eklenti Aktif",
+    textBrightness: "Metin Parlaklığı",
+    bgMode: "Arka Plan Modu",
+    pureBlack: "Saf Siyah",
+    soft: "Yumuşak",
+    contrastLevel: "Kontrast Seviyesi",
+    low: "Düşük",
+    normal: "Normal",
+    high: "Yüksek",
+    imageFiltering: "Görsel Filtreleme",
+    imageBrightness: "Görsel Parlaklığı",
+    customCSS: "Özel CSS",
+    customCSSPlaceholder: "Kendi CSS kodunuzu buraya yazın..."
+  }
+};
+
+function applyLang(lang) {
+  const messages = I18N[lang] || I18N.tr;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (messages[key]) el.textContent = messages[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (messages[key]) el.placeholder = messages[key];
+  });
+}
 
 function getSettings() {
   return {
@@ -16,7 +62,8 @@ function getSettings() {
     imageBrightness: parseInt(document.getElementById("image-brightness").value, 10),
     customCSS: document.getElementById("custom-css").value,
     bgMode: document.querySelector('#bg-mode-section .seg-btn.active')?.dataset.value || 'pure',
-    contrastLevel: document.querySelector('#contrast-section .seg-btn.active')?.dataset.value || 'normal'
+    contrastLevel: document.querySelector('#contrast-section .seg-btn.active')?.dataset.value || 'normal',
+    lang: document.querySelector('#lang-section .seg-btn.active')?.dataset.value || 'tr'
   };
 }
 
@@ -29,13 +76,14 @@ function saveSettings(settings) {
   });
 }
 
-function setupSegmentedControl(sectionId) {
+function setupSegmentedControl(sectionId, onChange) {
   const section = document.getElementById(sectionId);
   section.querySelectorAll('.seg-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       section.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       saveSettings(getSettings());
+      if (onChange) onChange(btn.dataset.value);
     });
   });
 }
@@ -76,10 +124,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('#contrast-section .seg-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.value === s.contrastLevel);
     });
+    document.querySelectorAll('#lang-section .seg-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === s.lang);
+    });
 
     setupSegmentedControl('bg-mode-section');
     setupSegmentedControl('contrast-section');
+    setupSegmentedControl('lang-section', (lang) => applyLang(lang));
 
+    applyLang(s.lang);
     updateUI();
   });
 

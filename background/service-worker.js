@@ -5,7 +5,8 @@ const DEFAULTS = {
   imageBrightness: 80,
   customCSS: "",
   bgMode: "pure",
-  contrastLevel: "normal"
+  contrastLevel: "normal",
+  lang: "tr"
 };
 
 chrome.runtime.onInstalled.addListener(() => {

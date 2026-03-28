@@ -1,0 +1,47 @@
+{
+  "appDesc": {
+    "message": "Applies AMOLED black theme to all websites. Provides an eye-friendly experience with text brightness, image filtering, and custom CSS support."
+  },
+  "appName": {
+    "message": "AMOLED Black"
+  },
+  "extensionActive": {
+    "message": "Extension Active"
+  },
+  "textBrightness": {
+    "message": "Text Brightness"
+  },
+  "bgMode": {
+    "message": "Background Mode"
+  },
+  "pureBlack": {
+    "message": "Pure Black"
+  },
+  "soft": {
+    "message": "Soft"
+  },
+  "contrastLevel": {
+    "message": "Contrast Level"
+  },
+  "low": {
+    "message": "Low"
+  },
+  "normal": {
+    "message": "Normal"
+  },
+  "high": {
+    "message": "High"
+  },
+  "imageFiltering": {
+    "message": "Image Filtering"
+  },
+  "imageBrightness": {
+    "message": "Image Brightness"
+  },
+  "customCSS": {
+    "message": "Custom CSS"
+  },
+  "customCSSPlaceholder": {
+    "message": "Write your custom CSS here..."
+  }
+}
