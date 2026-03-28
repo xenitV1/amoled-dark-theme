@@ -5,12 +5,6 @@
 
 A Chrome extension (Manifest V3) that applies true AMOLED black (`#000000`) dark theme to every website. Optimized for OLED/AMOLED displays — saves battery, reduces eye strain.
 
----
-
-Chrome uzantısı (Manifest V3) — tüm sitelere gercek AMOLED siyah (`#000000`) karanlık tema uygular. OLED/AMOLED ekranlar icin optimize edilmistir; pil tasarrufu saglar ve goz yorgunlugunu azaltır.
-
----
-
 ## Features
 
 - **Pure AMOLED Black** — Forces `#000000` backgrounds, not dark gray
@@ -26,62 +20,22 @@ Chrome uzantısı (Manifest V3) — tüm sitelere gercek AMOLED siyah (`#000000`
 - **Opt-Out** — Add `amoled-exclude` class to any element to skip it
 - **Settings Sync** — All preferences synced across devices via Chrome Sync
 
----
-
-## Ozellikler
-
-- **Saf AMOLED Siyah** — Koyu gri degil, `#000000` arka plan uygular
-- **Akıllı Koyu Algılama** — Zaten karanlık olan siteleri tanır ve agresif boyama yerine yalnızca metin uzerinde degisiklik yapar
-- **Metin Parlaklık Kontrolu** — Metin parlaklıgını %10 ile %100 arasında ayarlayın
-- **Arka Plan Modları** — Saf Siyah (`#000`) veya Yumusak (`#080808`)
-- **Kontrast Seviyeleri** — Dusuk, Normal veya Yuksek arka plan algılama esigi
-- **Gorsel Filtreleme** — Gorsellerin parlaklıgını istege baglı dusurun
-- **Ozel CSS** — Site bazlı veya genel gecerli kendi CSS kurallarınızı ekleyin
-- **Siteye Ozel Ayarlar** — GitHub, X/Twitter, YouTube, Reddit, LinkedIn, Instagram ve Wikipedia icin ozel tema enjeksiyonu
-- **Dinamik Icerik Destegi** — MutationObserver ile SPA sayfa gecisleri ve gec yuklenen icerikler desteklenir
-- **Oge Koruması** — Ikonlar, SVG'ler, kucuk oge ve arka plan gorselleri otomatik olarak dıslanır
-- **Dıslayın** — Herhangi bir ogeye `amoled-exclude` sınıfını ekleyerek temaya dıslayın
-- **Ayar Senkronizasyonu** — Tum tercihler Chrome Sync ile cihazlar arasında senkronize edilir
-
----
-
 ## Installation
 
 ### From Source
 
 1. Clone this repo
    ```bash
-   git clone https://github.com/<username>/amoled.git
+   git clone https://github.com/xenitV1/amoled-dark-theme.git
    ```
 2. Open `chrome://extensions/` in Chrome
 3. Enable **Developer mode** (top right)
 4. Click **Load unpacked**
-5. Select the `amoled` folder
+5. Select the `amoled-dark-theme` folder
 
 ### Chrome Web Store
 
 *Coming soon.*
-
----
-
-## Kurulum
-
-### Kaynak Koddan
-
-1. Repoyu klonlayın
-   ```bash
-   git clone https://github.com/<username>/amoled.git
-   ```
-2. Chrome'da `chrome://extensions/` adresini acın
-3. Sag ustten **Gelistirici modu**nu etkinlestirin
-4. **Paketlenmemis oge yukle**ye tıklayın
-5. `amoled` klasorunu secin
-
-### Chrome Web Store
-
-*Yakında.*
-
----
 
 ## Usage
 
@@ -95,6 +49,7 @@ Click the extension icon in the toolbar to open the popup:
 | **Contrast Level** | Background detection sensitivity (Low / Normal / High) |
 | **Image Filtering** | Dim images with adjustable brightness |
 | **Custom CSS** | Write custom CSS applied to all sites |
+| **Language** | Switch between EN / TR |
 
 ### Exclude Elements
 
@@ -105,33 +60,6 @@ Add the `amoled-exclude` class to any HTML element to prevent AMOLED Black from 
   This element won't be themed.
 </div>
 ```
-
----
-
-## Kullanim
-
-Araç cubugundaki uzantı ikonuna tıklayarak ayarlar penceresini acın:
-
-| Ayar | Aciklama |
-|---|---|
-| **Eklenti Aktif** | Uzantıyı ac/kapa |
-| **Metin Parlaklıgı** | Metin parlaklıgı kaydırıcı (%10-100) |
-| **Arka Plan Modu** | Saf Siyah veya Yumusak arka plan |
-| **Kontrast Seviyesi** | Arka plan algılama hassasiyeti (Dusuk / Normal / Yuksek) |
-| **Gorsel Filtreleme** | Gorsellerin parlaklıgını ayarlanabilir bicimde dusur |
-| **Ozel CSS** | Tum sitelere uygulanacak ozel CSS yazın |
-
-### Oge Dıslama
-
-Herhangi bir HTML ogesine `amoled-exclude` sınıfını ekleyerek AMOLED Black'in o ogeyi degistirmesini onleyin:
-
-```html
-<div class="amoled-exclude">
-  Bu oge temaya dahil edilmeyecek.
-</div>
-```
-
----
 
 ## Supported Sites
 
@@ -148,26 +76,6 @@ Site-specific CSS variable overrides are included for:
 | Wikipedia | CSS variables (`--background-color-*`, `--color-*`) |
 
 All other sites receive universal AMOLED overrides via DOM walking + generic CSS rules.
-
----
-
-## Desteklenen Siteler
-
-Asagıdaki siteler icin ozel CSS degisken ayarları bulunmaktadır:
-
-| Site | Yontem |
-|---|---|
-| GitHub | CSS ozel degiskenleri (`--color-canvas-*`, `--bgColor-*`) |
-| X / Twitter | `data-testid` secicileri + CSS ayarları |
-| YouTube | YouTube CSS degiskenleri (`--yt-spec-*`) |
-| Reddit | Reddit CSS degiskenleri (`--reddit-*`) |
-| LinkedIn | CSS degiskenleri (`--color-background-*`) |
-| Instagram | CSS degiskenleri (`--bg-*`, `--text-*`) |
-| Wikipedia | CSS degiskenleri (`--background-color-*`, `--color-*`) |
-
-Diger tum siteler, DOM gezinme ve genel CSS kurallarıyla evrensel AMOLED ayarları alır.
-
----
 
 ## Development
 
@@ -187,7 +95,7 @@ npx playwright test
 ### Architecture
 
 ```
-amoled/
+amoled-dark-theme/
 ├── manifest.json              # Manifest V3 configuration
 ├── _locales/
 │   ├── en/messages.json       # English locale
@@ -200,7 +108,7 @@ amoled/
 ├── popup/
 │   ├── popup.html             # Settings UI
 │   ├── popup.css              # Popup styling
-│   └── popup.js               # Settings read/write, segmented controls
+│   └── popup.js               # Settings read/write, i18n, segmented controls
 ├── icons/
 │   ├── 16.png
 │   ├── 48.png
@@ -210,52 +118,6 @@ amoled/
     ├── helpers/               # Test utilities
     └── specs/                 # Test specifications
 ```
-
----
-
-## Gelistirme
-
-### Gereksinimler
-
-- Chrome veya Chromium tabanlı tarayıcı
-- Node.js (testleri calıstırmak icin)
-
-### Testleri Calıstırma
-
-```bash
-cd tests
-npm install
-npx playwright test
-```
-
-### Mimari
-
-```
-amoled/
-├── manifest.json              # Manifest V3 yapılandırması
-├── _locales/
-│   ├── en/messages.json       # Ingilizce dil dosyası
-│   └── tr/messages.json       # Turkce dil dosyası
-├── background/
-│   └── service-worker.js      # Ayar senkronizasyonu, sekme guncelleme
-├── content/
-│   ├── content.js             # Temel tema motoru: DOM gezici, renk islemleri, site ayarları
-│   └── amoled.css             # Temel CSS: degiskenler, kaydırma cubugu, form stilleri
-├── popup/
-│   ├── popup.html             # Ayarlar arayuzu
-│   ├── popup.css              # Popup stilleri
-│   └── popup.js               # Ayar okuma/yazma, kontroller
-├── icons/
-│   ├── 16.png
-│   ├── 48.png
-│   └── 128.png
-└── tests/                     # Playwright test paketi
-    ├── fixtures/              # Sahte HTML sayfaları
-    ├── helpers/               # Test aracları
-    └── specs/                 # Test ozellikleri
-```
-
----
 
 ## How It Works
 
@@ -268,21 +130,140 @@ amoled/
 4. **Dynamic Updates** — A `MutationObserver` with `requestAnimationFrame` batching handles new elements without jank
 5. **Settings Sync** — The service worker broadcasts setting changes to all open tabs
 
----
-
-## Calısma Prensibi
-
-1. **Erken Enjeksiyon** — `document_start` anında minimal bir CSS kuralı enjekte edilerek beyaz parıltı onlenir
-2. **Tema Uygulaması** — `DOMContentLoaded` uzerinde icerik betigi `chrome.storage.sync`'ten ayarları okur ve:
-   - Site zaten karanlık mı tespit eder (`data-color-mode`, `dark` niteligi, meta etiketleri uzerinden)
-   - Karanlık siteler icin: yalnızca metin CSS ayarlarını uygular
-   - Acık siteler icin: DOM'u gezerek acık arka planları AMOLED siyaha cevirir
-3. **Site Ayarları** — Her site icin CSS ozel degiskenleri uzerine yazılarak dogal gorunumlu temalar elde edilir
-4. **Dinamik Guncellemeler** — `MutationObserver`, `requestAnimationFrame` ile birlestirilerek yeni oge performans sorunu yaratmadan islenir
-5. **Ayar Senkronizasyonu** — Service worker, ayar degisikliklerini tum acık sekmelere yayınlama yapar
-
----
-
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+---
+
+<details>
+<summary><strong>Türkçe</strong></summary>
+
+Chrome uzantısı (Manifest V3) — tüm sitelere gerçek AMOLED siyah (`#000000`) karanlık tema uygular. OLED/AMOLED ekranlar için optimize edilmiştir; pil tasarrufu sağlar ve göz yorgunluğunu azaltır.
+
+## Özellikler
+
+- **Saf AMOLED Siyah** — Koyu gri değil, `#000000` arka plan uygular
+- **Akıllı Koyu Algılama** — Zaten karanlık olan siteleri tanır ve agresif boyama yerine yalnızca metin üzerinde değişiklik yapar
+- **Metin Parlaklık Kontrolü** — Metin parlaklığını %10 ile %100 arasında ayarlayın
+- **Arka Plan Modları** — Saf Siyah (`#000`) veya Yumuşak (`#080808`)
+- **Kontrast Seviyeleri** — Düşük, Normal veya Yüksek arka plan algılama eşiği
+- **Görsel Filtreleme** — Görsellerin parlaklığını isteğe bağlı düşürün
+- **Özel CSS** — Site bazlı veya genel geçerli kendi CSS kurallarınızı ekleyin
+- **Siteye Özel Ayarlar** — GitHub, X/Twitter, YouTube, Reddit, LinkedIn, Instagram ve Wikipedia için özel tema enjeksiyonu
+- **Dinamik İçerik Desteği** — MutationObserver ile SPA sayfa geçişleri ve geç yüklenen içerikler desteklenir
+- **Öğe Koruması** — İkonlar, SVG'ler, küçük öğe ve arka plan görselleri otomatik olarak dışlanır
+- **Dışlayın** — Herhangi bir öğeye `amoled-exclude` sınıfını ekleyerek temaya dışlayın
+- **Ayar Senkronizasyonu** — Tüm tercihler Chrome Sync ile cihazlar arasında senkronize edilir
+
+## Kurulum
+
+### Kaynak Koddan
+
+1. Repoyu klonlayın
+   ```bash
+   git clone https://github.com/xenitV1/amoled-dark-theme.git
+   ```
+2. Chrome'da `chrome://extensions/` adresini açın
+3. Sağ üstten **Geliştirici modu**nu etkinleştirin
+4. **Paketlenmemiş uzantı yükle**ye tıklayın
+5. `amoled-dark-theme` klasörünü seçin
+
+### Chrome Web Store
+
+*Yakında.*
+
+## Kullanım
+
+Araç çubuğundaki uzantı ikonuna tıklayarak ayarlar penceresini açın:
+
+| Ayar | Açıklama |
+|---|---|
+| **Eklenti Aktif** | Uzantıyı aç/kapa |
+| **Metin Parlaklığı** | Metin parlaklığı kaydırıcısı (%10-100) |
+| **Arka Plan Modu** | Saf Siyah veya Yumuşak arka plan |
+| **Kontrast Seviyesi** | Arka plan algılama hassasiyeti (Düşük / Normal / Yüksek) |
+| **Görsel Filtreleme** | Görsellerin parlaklığını ayarlanabilir şekilde düşür |
+| **Özel CSS** | Tüm sitelere uygulanacak özel CSS yazın |
+| **Dil** | TR / EN arasında geçiş yapın |
+
+### Öğe Dışlama
+
+Herhangi bir HTML öğesine `amoled-exclude` sınıfını ekleyerek AMOLED Black'in o öğeyi değiştirmesini önleyin:
+
+```html
+<div class="amoled-exclude">
+  Bu öğe temaya dahil edilmeyecek.
+</div>
+```
+
+## Desteklenen Siteler
+
+Aşağıdaki siteler için özel CSS değişken ayarları bulunmaktadır:
+
+| Site | Yöntem |
+|---|---|
+| GitHub | CSS özel değişkenleri (`--color-canvas-*`, `--bgColor-*`) |
+| X / Twitter | `data-testid` seçicileri + CSS ayarları |
+| YouTube | YouTube CSS değişkenleri (`--yt-spec-*`) |
+| Reddit | Reddit CSS değişkenleri (`--reddit-*`) |
+| LinkedIn | CSS değişkenleri (`--color-background-*`) |
+| Instagram | CSS değişkenleri (`--bg-*`, `--text-*`) |
+| Wikipedia | CSS değişkenleri (`--background-color-*`, `--color-*`) |
+
+Diğer tüm siteler, DOM gezinme ve genel CSS kurallarıyla evrensel AMOLED ayarları alır.
+
+## Geliştirme
+
+### Gereksinimler
+
+- Chrome veya Chromium tabanlı tarayıcı
+- Node.js (testleri çalıştırmak için)
+
+### Testleri Çalıştırma
+
+```bash
+cd tests
+npm install
+npx playwright test
+```
+
+### Mimari
+
+```
+amoled-dark-theme/
+├── manifest.json              # Manifest V3 yapılandırması
+├── _locales/
+│   ├── en/messages.json       # İngilizce dil dosyası
+│   └── tr/messages.json       # Türkçe dil dosyası
+├── background/
+│   └── service-worker.js      # Ayar senkronizasyonu, sekme güncelleme
+├── content/
+│   ├── content.js             # Temel tema motoru: DOM gezici, renk işlemleri, site ayarları
+│   └── amoled.css             # Temel CSS: değişkenler, kaydırma çubuğu, form stilleri
+├── popup/
+│   ├── popup.html             # Ayarlar arayüzü
+│   ├── popup.css              # Popup stilleri
+│   └── popup.js               # Ayar okuma/yazma, i18n, kontroller
+├── icons/
+│   ├── 16.png
+│   ├── 48.png
+│   └── 128.png
+└── tests/                     # Playwright test paketi
+    ├── fixtures/              # Sahte HTML sayfaları
+    ├── helpers/               # Test araçları
+    └── specs/                 # Test özellikleri
+```
+
+## Çalışma Prensibi
+
+1. **Erken Enjeksiyon** — `document_start` anında minimal bir CSS kuralı enjekte edilerek beyaz parıltı önlenir
+2. **Tema Uygulaması** — `DOMContentLoaded` üzerinde içerik betiği `chrome.storage.sync`'ten ayarları okur ve:
+   - Site zaten karanlık mı tespit eder (`data-color-mode`, `dark` niteliği, meta etiketleri üzerinden)
+   - Karanlık siteler için: yalnızca metin CSS ayarlarını uygular
+   - Açık siteler için: DOM'u gezerek açık arka planları AMOLED siyaha çevirir
+3. **Site Ayarları** — Her site için CSS özel değişkenleri üzerine yazılarak doğal görünümlü temalar elde edilir
+4. **Dinamik Güncellemeler** — `MutationObserver`, `requestAnimationFrame` ile birleştirilerek yeni öğeler performans sorunu yaratmadan işlenir
+5. **Ayar Senkronizasyonu** — Service worker, ayar değişikliklerini tüm açık sekmelere yayınlar
+
+</details>
