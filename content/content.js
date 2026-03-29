@@ -553,6 +553,7 @@
     var processCount = 0;
 
     function processPending() {
+      _debugPendingCalled++;
       scheduled = false;
       if (!currentSettings.enabled || pendingNodes.length === 0) {
         pendingNodes = [];
@@ -615,15 +616,36 @@
     });
   }
 
+  function handleSettingsUpdate(settings) {
+    restoreAll();
+    applyTheme(settings);
+  }
+
   chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.type === "settings-update") {
-      restoreAll();
-      applyTheme(message.settings);
+      handleSettingsUpdate(message.settings);
       sendResponse({ ok: true });
     } else if (message.type === "getSettings") {
       sendResponse(currentSettings);
     }
     return true;
+  });
+
+  chrome.storage.onChanged.addListener(function(changes, area) {
+    if (area !== "sync") return;
+    var newSettings = {};
+    for (var key in DEFAULTS) {
+      if (DEFAULTS.hasOwnProperty(key)) {
+        if (changes[key] && changes[key].newValue !== undefined) {
+          newSettings[key] = changes[key].newValue;
+        } else if (currentSettings[key] !== undefined) {
+          newSettings[key] = currentSettings[key];
+        } else {
+          newSettings[key] = DEFAULTS[key];
+        }
+      }
+    }
+    handleSettingsUpdate(newSettings);
   });
 
   function injectStyleToHead() {
@@ -660,9 +682,24 @@
     document.addEventListener("DOMContentLoaded", init, { once: true });
   }
 
+  var _debugProcessed = 0;
+  var _debugWalked = 0;
+  var _debugPendingCalled = 0;
+  var _origProcessElement = processElement;
+  processElement = function(el, settings) {
+    _debugProcessed++;
+    _origProcessElement(el, settings);
+  };
+  var _origWalkDOM = walkDOM;
+  walkDOM = function(root, settings, noLimit) {
+    _debugWalked++;
+    _origWalkDOM(root, settings, noLimit);
+  };
+
   window.__amoledBlack = {
     getSettings: function() { return currentSettings; },
     siteHandled: function() { return true; },
-    isDarkSite: function() { return isDarkSite; }
+    isDarkSite: function() { return isDarkSite; },
+    getDebug: function() { return { processed: _debugProcessed, walked: _debugWalked, pendingCalled: _debugPendingCalled }; }
   };
 })();
