@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Site</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background: #ffffff; color: #333333; }
+    nav {
+      background: #f8f9fa; border-bottom: 1px solid #dee2e6;
+      padding: 12px 24px; display: flex; align-items: center; gap: 24px;
+    }
+    nav .logo { font-weight: bold; font-size: 18px; color: #212529; }
+    nav a { color: #007bff; text-decoration: none; font-size: 14px; }
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+    h1 { color: #212529; margin-bottom: 8px; }
+    h2 { color: #212529; margin: 24px 0 12px; font-size: 20px; }
+    .subtitle { color: #6c757d; margin-bottom: 32px; }
+    .canvas-section {
+      background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px;
+      padding: 20px; margin-bottom: 24px;
+    }
+    .canvas-section h3 { font-size: 15px; color: #212529; margin-bottom: 12px; }
+    canvas {
+      border: 1px solid #dee2e6; border-radius: 4px; display: block; background: #ffffff;
+    }
+    .controls {
+      display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+    }
+    .btn {
+      padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;
+    }
+    .btn-primary { background: #007bff; color: #ffffff; }
+    .btn-secondary { background: #e9ecef; color: #495057; }
+    .btn-danger { background: #dc3545; color: #ffffff; }
+    .info-bar {
+      background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px;
+      padding: 12px 16px; margin-top: 12px; font-size: 13px; color: #6c757d;
+      display: flex; justify-content: space-between;
+    }
+    .card {
+      background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px;
+      padding: 20px; margin-bottom: 16px;
+    }
+    .card h3 { color: #212529; font-size: 16px; margin-bottom: 8px; }
+    .card p { color: #6c757d; font-size: 14px; line-height: 1.5; }
+    .canvas-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .label { font-size: 12px; color: #6c757d; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="logo">CanvasLab</span>
+    <a href="#">Gallery</a>
+    <a href="#">Editor</a>
+    <a href="#">About</a>
+  </nav>
+  <div class="container">
+    <h1>Canvas &amp; Drawing Demo</h1>
+    <p class="subtitle">Testing how the dark theme extension handles canvas elements. Canvas pixel content should NOT be modified by the extension.</p>
+
+    <div class="canvas-section">
+      <h3>2D Shapes</h3>
+      <canvas id="shapes-canvas" width="840" height="300"></canvas>
+      <div class="controls">
+        <button class="btn btn-primary" onclick="drawShapes()">Redraw</button>
+        <button class="btn btn-secondary" onclick="clearCanvas('shapes-canvas')">Clear</button>
+      </div>
+    </div>
+
+    <div class="canvas-row">
+      <div class="canvas-section">
+        <h3>Gradient Fill</h3>
+        <canvas id="gradient-canvas" width="400" height="250"></canvas>
+        <div class="label">Linear and radial gradients</div>
+        <div class="controls">
+          <button class="btn btn-primary" onclick="drawGradients()">Redraw</button>
+          <button class="btn btn-danger" onclick="clearCanvas('gradient-canvas')">Clear</button>
+        </div>
+      </div>
+      <div class="canvas-section">
+        <h3>Chart</h3>
+        <canvas id="chart-canvas" width="400" height="250"></canvas>
+        <div class="info-bar">
+          <span>Data points: 6</span>
+          <span>Max: 85</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Canvas &amp; Dark Themes</h3>
+      <p>Canvas elements are bitmap surfaces rendered via JavaScript. A CSS dark theme extension should NOT affect the pixel content inside canvas elements. Only the surrounding HTML elements and the canvas border/background should be darkened.</p>
+    </div>
+
+    <div class="card">
+      <h3>Testing Notes</h3>
+      <p>The extension should: (1) Darken the page background, (2) Darken the canvas border and container, (3) NOT modify the canvas pixel content. If the canvas appears altered, that indicates a bug in the extension's element detection logic.</p>
+    </div>
+  </div>
+
+  <script>
+    function drawShapes() {
+      const canvas = document.getElementById('shapes-canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#e3f2fd';
+      ctx.fillRect(10, 10, 120, 80);
+      ctx.strokeStyle = '#1565c0';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(10, 10, 120, 80);
+
+      ctx.fillStyle = '#ffcdd2';
+      ctx.fillRect(150, 10, 120, 80);
+      ctx.strokeStyle = '#c62828';
+      ctx.strokeRect(150, 10, 120, 80);
+
+      ctx.beginPath();
+      ctx.arc(350, 50, 40, 0, Math.PI * 2);
+      ctx.fillStyle = '#c8e6c9';
+      ctx.fill();
+      ctx.strokeStyle = '#2e7d32';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(470, 50, 40, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff9c4';
+      ctx.fill();
+      ctx.strokeStyle = '#f9a825';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(540, 90);
+      ctx.lineTo(600, 10);
+      ctx.lineTo(660, 90);
+      ctx.closePath();
+      ctx.fillStyle = '#e1bee7';
+      ctx.fill();
+      ctx.strokeStyle = '#7b1fa2';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(690, 90);
+      ctx.lineTo(750, 10);
+      ctx.lineTo(810, 90);
+      ctx.closePath();
+      ctx.fillStyle = '#ffe0b2';
+      ctx.fill();
+      ctx.strokeStyle = '#e65100';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(70, 190, 60, 0, Math.PI, true);
+      ctx.fillStyle = '#b2dfdb';
+      ctx.fill();
+      ctx.strokeStyle = '#00695c';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(230, 190, 60, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffccbc';
+      ctx.fill();
+      ctx.strokeStyle = '#bf360c';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.fillStyle = '#333333';
+      ctx.font = '14px sans-serif';
+      ctx.fillText('Rectangles', 30, 115);
+      ctx.fillText('Circles', 310, 115);
+      ctx.fillText('Triangles', 570, 115);
+      ctx.fillText('More Shapes', 100, 270);
+    }
+
+    function drawGradients() {
+      const canvas = document.getElementById('gradient-canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const linear = ctx.createLinearGradient(10, 10, 190, 240);
+      linear.addColorStop(0, '#667eea');
+      linear.addColorStop(1, '#764ba2');
+      ctx.fillStyle = linear;
+      ctx.fillRect(10, 10, 180, 230);
+
+      const radial = ctx.createRadialGradient(300, 125, 10, 300, 125, 100);
+      radial.addColorStop(0, '#f093fb');
+      radial.addColorStop(0.5, '#f5576c');
+      radial.addColorStop(1, '#4facfe');
+      ctx.fillStyle = radial;
+      ctx.beginPath();
+      ctx.arc(300, 125, 90, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function drawChart() {
+      const canvas = document.getElementById('chart-canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const data = [65, 45, 85, 55, 70, 40];
+      const colors = ['#3b82f6', '#22c55e', '#ef4444', '#f59e0b', '#8b5cf6', '#ec4899'];
+      const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+      ctx.strokeStyle = '#dee2e6';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 5; i++) {
+        const y = 20 + i * 45;
+        ctx.beginPath();
+        ctx.moveTo(40, y);
+        ctx.lineTo(380, y);
+        ctx.stroke();
+      }
+
+      const barWidth = 40;
+      const gap = 20;
+      const startX = 55;
+      for (let i = 0; i < data.length; i++) {
+        const height = (data[i] / 100) * 180;
+        const x = startX + i * (barWidth + gap);
+        const y = 200 - height;
+        ctx.fillStyle = colors[i];
+        ctx.fillRect(x, y, barWidth, height);
+        ctx.fillStyle = '#6c757d';
+        ctx.font = '11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(labels[i], x + barWidth / 2, 220);
+        ctx.fillText(data[i], x + barWidth / 2, y - 5);
+      }
+    }
+
+    function clearCanvas(id) {
+      const canvas = document.getElementById(id);
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    drawShapes();
+    drawGradients();
+    drawChart();
+  </script>
+</body>
+</html>

@@ -1,21 +1,6 @@
 const { test, expect, chromium } = require('@playwright/test');
 const { launchExtension, openPopup, openTestPage, setPopupSetting, waitForThemeApplied } = require('../helpers/extension');
-
-function getContrastRatio(bgColor, textColor) {
-  function lum(r, g, b) {
-    const [rs, gs, bs] = [r/255, g/255, b/255].map(c => c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4));
-    return 0.2126*rs + 0.7152*gs + 0.0722*bs;
-  }
-  function parseRGB(s) {
-    const m = s.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-    return m ? [parseInt(m[1]), parseInt(m[2]), parseInt(m[3])] : [0,0,0];
-  }
-  const [br, bg, bb] = parseRGB(bgColor);
-  const [tr, tg, tb] = parseRGB(textColor);
-  const l1 = lum(br, bg, bb) + 0.05;
-  const l2 = lum(tr, tg, tb) + 0.05;
-  return l1 > l2 ? l1/l2 : l2/l1;
-}
+const { getContrastRatio } = require('../helpers/color-utils');
 
 test.describe('Accessibility & Contrast', () => {
   let context, extensionId, popup;

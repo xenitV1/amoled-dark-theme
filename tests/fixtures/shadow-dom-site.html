@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shadow DOM Site</title>
+  <style>
+    body { font-family: sans-serif; background: #ffffff; color: #333333; margin: 0; padding: 20px; }
+    .light-section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 16px 0; border: 1px solid #dee2e6; }
+    .light-section h2 { color: #212529; margin-bottom: 12px; }
+    .light-card { background: #ffffff; border: 1px solid #e9ecef; border-radius: 6px; padding: 16px; margin: 8px 0; }
+    .light-card p { color: #495057; font-size: 14px; }
+    .light-nav { background: #f0f0f0; padding: 12px 20px; border-radius: 6px; margin-bottom: 16px; display: flex; gap: 16px; }
+    .light-nav a { color: #007bff; text-decoration: none; font-size: 14px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { color: #212529; margin-bottom: 8px; }
+    .subtitle { color: #6c757d; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="light-nav">
+      <a href="#">Home</a>
+      <a href="#">Components</a>
+      <a href="#">About</a>
+    </div>
+    <h1>Shadow DOM Components</h1>
+    <p class="subtitle">Testing Web Components with Shadow DOM alongside regular light DOM elements.</p>
+
+    <div class="light-section">
+      <h2>Light DOM Section</h2>
+      <div class="light-card"><p>This is a regular light DOM card with a white background.</p></div>
+      <div class="light-card"><p>The extension should process these elements normally.</p></div>
+    </div>
+
+    <custom-user-card name="Alice Johnson" role="Lead Designer" status="online"></custom-user-card>
+    <custom-user-card name="Bob Smith" role="Engineer" status="offline"></custom-user-card>
+
+    <div class="light-section">
+      <h2>Open Shadow Root Component</h2>
+      <custom-notification-panel></custom-notification-panel>
+    </div>
+
+    <div class="light-section">
+      <h2>Closed Shadow Root Component</h2>
+      <closed-widget></closed-widget>
+    </div>
+
+    <div class="light-section">
+      <h2>Mixed Content</h2>
+      <div class="light-card"><p>This light DOM card sits between shadow DOM components.</p></div>
+      <custom-counter label="Visits"></custom-counter>
+      <div class="light-card"><p>Another light DOM element after a shadow component.</p></div>
+    </div>
+  </div>
+
+  <script>
+    class UserCard extends HTMLElement {
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        shadow.innerHTML = `
+          <style>
+            :host { display: block; margin: 12px 0; }
+            .card {
+              background: #ffffff;
+              border: 1px solid #e9ecef;
+              border-radius: 8px;
+              padding: 16px;
+              display: flex;
+              align-items: center;
+              gap: 12px;
+            }
+            .avatar {
+              width: 48px; height: 48px; border-radius: 50%;
+              background: #e9ecef;
+              display: flex; align-items: center; justify-content: center;
+              font-size: 18px; color: #495057; font-weight: bold;
+            }
+            .info { flex: 1; }
+            .name { font-size: 15px; font-weight: bold; color: #212529; }
+            .role { font-size: 13px; color: #6c757d; }
+            .status {
+              display: inline-block; padding: 2px 8px; border-radius: 10px;
+              font-size: 11px;
+            }
+            .status.online { background: #d4edda; color: #155724; }
+            .status.offline { background: #f8f9fa; color: #6c757d; }
+          </style>
+          <div class="card">
+            <div class="avatar">${this.getAttribute('name')?.split(' ').map(w => w[0]).join('') || '??'}</div>
+            <div class="info">
+              <div class="name">${this.getAttribute('name') || 'Unknown'}</div>
+              <div class="role">${this.getAttribute('role') || 'No role'}</div>
+            </div>
+            <span class="status ${this.getAttribute('status') || 'offline'}">${this.getAttribute('status') || 'offline'}</span>
+          </div>
+        `;
+      }
+    }
+    customElements.define('custom-user-card', UserCard);
+
+    class NotificationPanel extends HTMLElement {
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        shadow.innerHTML = `
+          <style>
+            :host { display: block; }
+            .panel { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 16px; }
+            .panel h3 { font-size: 15px; color: #212529; margin: 0 0 12px 0; }
+            .notification {
+              background: #ffffff; border: 1px solid #e9ecef; border-radius: 6px;
+              padding: 10px 14px; margin-bottom: 8px; font-size: 13px; color: #495057;
+              display: flex; justify-content: space-between; align-items: center;
+            }
+            .notification .time { color: #adb5bd; font-size: 11px; }
+            .notification.unread { border-left: 3px solid #007bff; }
+            .badge {
+              background: #dc3545; color: #ffffff; border-radius: 10px;
+              padding: 2px 8px; font-size: 11px; display: inline-block; margin-bottom: 12px;
+            }
+          </style>
+          <div class="panel">
+            <span class="badge">3 new</span>
+            <h3>Notifications</h3>
+            <div class="notification unread">New comment on your post <span class="time">2m ago</span></div>
+            <div class="notification unread">Build completed successfully <span class="time">15m ago</span></div>
+            <div class="notification unread">Mentioned in design review <span class="time">1h ago</span></div>
+            <div class="notification">Weekly digest available <span class="time">1d ago</span></div>
+          </div>
+        `;
+      }
+    }
+    customElements.define('custom-notification-panel', NotificationPanel);
+
+    class ClosedWidget extends HTMLElement {
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'closed' });
+        shadow.innerHTML = `
+          <style>
+            .widget { background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 16px; }
+            .widget h3 { font-size: 15px; color: #212529; margin: 0 0 8px 0; }
+            .widget p { font-size: 13px; color: #6c757d; line-height: 1.5; }
+            .widget .bar { background: #e9ecef; height: 8px; border-radius: 4px; margin-top: 12px; }
+            .widget .bar .fill { background: #007bff; height: 100%; border-radius: 4px; width: 65%; }
+          </style>
+          <div class="widget">
+            <h3>Closed Shadow Widget</h3>
+            <p>This content is inside a closed shadow root. External scripts cannot access this shadow DOM.</p>
+            <div class="bar"><div class="fill"></div></div>
+          </div>
+        `;
+      }
+    }
+    customElements.define('closed-widget', ClosedWidget);
+
+    class CustomCounter extends HTMLElement {
+      constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        shadow.innerHTML = `
+          <style>
+            .counter { background: #f0f0f0; border: 1px solid #dee2e6; border-radius: 8px; padding: 16px; text-align: center; margin: 8px 0; }
+            .counter .label { font-size: 13px; color: #6c757d; }
+            .counter .value { font-size: 28px; font-weight: bold; color: #212529; margin: 8px 0; }
+            .counter button {
+              background: #007bff; color: #ffffff; border: none; padding: 6px 16px;
+              border-radius: 4px; cursor: pointer; font-size: 13px; margin: 0 4px;
+            }
+          </style>
+          <div class="counter">
+            <div class="label">${this.getAttribute('label') || 'Counter'}</div>
+            <div class="value">0</div>
+            <button class="dec">-</button>
+            <button class="inc">+</button>
+          </div>
+        `;
+      }
+      connectedCallback() {
+        const shadow = this.shadowRoot;
+        let count = 0;
+        const valueEl = shadow.querySelector('.value');
+        shadow.querySelector('.inc').addEventListener('click', () => { valueEl.textContent = ++count; });
+        shadow.querySelector('.dec').addEventListener('click', () => { valueEl.textContent = --count; });
+      }
+    }
+    customElements.define('custom-counter', CustomCounter);
+  </script>
+</body>
+</html>

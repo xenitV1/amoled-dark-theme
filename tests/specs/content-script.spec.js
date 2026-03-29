@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { launchExtension, openPopup, openTestPage, waitForThemeApplied, setPopupSetting } = require('../helpers/extension');
+const { parseRGB } = require('../helpers/color-utils');
 
 test.describe('Content Script \u2014 Light Site', () => {
   let context;
@@ -104,11 +105,29 @@ test.describe('Content Script \u2014 Light Site', () => {
     const page = await openTestPage(context, '/light');
     await waitForThemeApplied(page);
 
-    const hasAmoledCSS = await page.evaluate(() => {
-      return true;
+    const scrollbarCSS = await page.evaluate(() => {
+      const baseStyle = document.getElementById('amoled-base');
+      if (!baseStyle) return { hasScrollbarStyles: false };
+      const content = baseStyle.textContent;
+      return {
+        hasScrollbarStyles: content.includes('scrollbar'),
+        hasBase: true
+      };
     });
 
-    expect(hasAmoledCSS).toBe(true);
+    if (scrollbarCSS.hasScrollbarStyles) {
+      const trackColor = await page.evaluate(() => {
+        const el = document.createElement('div');
+        el.style.overflow = 'scroll';
+        el.style.width = '100px';
+        el.style.height = '100px';
+        document.body.appendChild(el);
+        const track = getComputedStyle(el, '::-webkit-scrollbar-track').backgroundColor;
+        el.remove();
+        return track;
+      });
+    }
+    expect(scrollbarCSS.hasBase).toBe(true);
   });
 });
 
@@ -277,13 +296,3 @@ test.describe('Content Script \u2014 Dynamic Content', () => {
     expect(result.text).toBeTruthy();
   });
 });
-
-function parseRGB(colorStr) {
-  const m = colorStr.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-  return m ? { r: parseInt(m[1]), g: parseInt(m[2]), b: parseInt(m[3]) } : { r: 0, g: 0, b: 0 };
-}
-
-function parseRGB2(colorStr) {
-  const m = colorStr.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-  return m ? { r: parseInt(m[1]), g: parseInt(m[2]), b: parseInt(m[3]) } : { r: 0, g: 0, b: 0 };
-}

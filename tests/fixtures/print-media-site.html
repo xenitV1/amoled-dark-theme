@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Print Media Site</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; background: #ffffff; color: #333333; }
+
+    @media screen {
+      body { padding: 32px; max-width: 900px; margin: 0 auto; }
+      .screen-only { display: block; }
+      .print-only { display: none; }
+      nav {
+        background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;
+        padding: 12px 20px; display: flex; gap: 16px; margin-bottom: 24px;
+      }
+      nav a { color: #007bff; text-decoration: none; font-size: 14px; }
+      .print-btn {
+        margin-left: auto; background: #007bff; color: #ffffff; border: none;
+        padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 13px;
+      }
+      .article-header { background: #f8f9fa; padding: 32px; border-radius: 8px; border: 1px solid #e9ecef; margin-bottom: 32px; }
+    }
+
+    @media print {
+      .screen-only { display: none !important; }
+      .print-only { display: block !important; }
+      body { padding: 0; max-width: none; font-size: 12pt; color: #000; background: #fff; }
+      .article-header { background: none; border: none; padding: 0; border-bottom: 2px solid #000; padding-bottom: 16px; }
+      .print-header {
+        display: block !important; text-align: center; border-bottom: 1px solid #999;
+        padding-bottom: 8px; margin-bottom: 24px; font-size: 10pt; color: #666;
+      }
+      .print-footer {
+        display: block !important; position: fixed; bottom: 0; text-align: center;
+        font-size: 10pt; color: #666; border-top: 1px solid #999; padding-top: 8px;
+      }
+      .page-break-before { page-break-before: always; }
+      .page-break-after { page-break-after: always; }
+      .no-print { display: none !important; }
+      .card { border: 1px solid #ccc; break-inside: avoid; }
+      h2 { page-break-after: avoid; }
+      table { page-break-inside: avoid; }
+      nav { display: none !important; }
+    }
+
+    .print-header { display: none; }
+    .print-footer { display: none; }
+
+    h1 { color: #212529; font-size: 28px; margin-bottom: 8px; line-height: 1.3; }
+    .meta { color: #6c757d; font-size: 14px; margin-bottom: 24px; }
+    h2 { color: #212529; font-size: 20px; margin: 28px 0 12px; }
+    p { font-size: 16px; line-height: 1.8; color: #333333; margin-bottom: 16px; }
+    .card {
+      background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px;
+      padding: 20px; margin-bottom: 16px;
+    }
+    .card h3 { color: #212529; font-size: 16px; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: #495057; }
+    .highlight {
+      background: #fff3cd; border-left: 4px solid #ffc107;
+      padding: 16px; margin: 20px 0; border-radius: 0 8px 8px 0;
+    }
+    .highlight p { color: #856404; font-size: 14px; margin: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th { background: #f8f9fa; padding: 10px 14px; text-align: left; font-size: 14px; color: #495057; border-bottom: 2px solid #dee2e6; }
+    td { padding: 10px 14px; font-size: 14px; color: #495057; border-bottom: 1px solid #e9ecef; }
+    .sidebar-info {
+      background: #f0f0f0; border-radius: 8px; padding: 20px; margin: 24px 0;
+      border: 1px solid #dee2e6;
+    }
+    .sidebar-info h4 { color: #212529; margin-bottom: 8px; }
+    .sidebar-info p { font-size: 13px; color: #6c757d; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <div class="print-header">
+    Research Report &mdash; AMOLED Technologies &mdash; Printed on <span id="print-date"></span>
+  </div>
+
+  <nav class="screen-only">
+    <a href="#">Home</a>
+    <a href="#">Articles</a>
+    <a href="#">Reports</a>
+    <button class="print-btn" onclick="window.print()">&#128424; Print This Article</button>
+  </nav>
+
+  <div class="article-header">
+    <h1>The Future of Display Technology: OLED, AMOLED, and Beyond</h1>
+    <div class="meta">By Dr. Jane Smith &middot; March 29, 2026 &middot; 12 min read</div>
+  </div>
+
+  <p>The display industry has undergone remarkable transformations over the past decade. From the early days of CRT monitors to the vibrant AMOLED screens we carry in our pockets today, the evolution of display technology continues to reshape how we interact with digital content.</p>
+
+  <div class="highlight">
+    <p><strong>Key Insight:</strong> AMOLED displays consume significantly less power when displaying dark content, as individual pixels can be completely turned off rather than dimmed through filters.</p>
+  </div>
+
+  <h2>Current State of AMOLED Technology</h2>
+  <p>Active Matrix Organic Light-Emitting Diode (AMOLED) technology has become the gold standard for mobile displays. Each pixel generates its own light, eliminating the need for a backlight and enabling true blacks and infinite contrast ratios.</p>
+
+  <div class="card">
+    <h3>AMOLED Advantages</h3>
+    <p>Superior color reproduction, deeper blacks, wider viewing angles, faster refresh rates, and lower power consumption for dark-themed interfaces.</p>
+  </div>
+
+  <h2>Comparison of Display Technologies</h2>
+  <table>
+    <thead>
+      <tr><th>Technology</th><th>Contrast Ratio</th><th>Power Efficiency</th><th>Color Accuracy</th><th>Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>LCD IPS</td><td>1000:1</td><td>Medium</td><td>Good</td><td>Low</td>
+      <tr><td>OLED</td><td>Infinite</td><td>High (dark)</td><td>Excellent</td><td>Medium</td>
+      <tr><td>AMOLED</td><td>Infinite</td><td>Very High (dark)</td><td>Excellent</td><td>High</td>
+      <tr><td>MicroLED</td><td>Infinite</td><td>Very High</td><td>Outstanding</td><td>Very High</td>
+    </tbody>
+  </table>
+
+  <div class="page-break-before"></div>
+
+  <h2>Future Developments</h2>
+  <p>The next frontier in display technology includes foldable screens, under-display cameras, and microLED panels that promise even better efficiency and longevity. These advances will fundamentally change device form factors and user interactions.</p>
+
+  <div class="sidebar-info">
+    <h4>About This Report</h4>
+    <p>Published by: AMOLED Technologies Research Division</p>
+    <p>Document ID: REP-2026-0329</p>
+    <p>Classification: Public</p>
+  </div>
+
+  <p>As manufacturing processes improve and costs decrease, we can expect AMOLED and its successors to become ubiquitous across all display categories, from smartphones and tablets to laptops, monitors, and large-format televisions.</p>
+
+  <div class="print-only">
+    <div class="print-footer">
+      Page <span id="page-num"></span> &mdash; &copy; 2026 AMOLED Technologies. All rights reserved.
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('print-date').textContent = new Date().toLocaleDateString();
+  </script>
+</body>
+</html>

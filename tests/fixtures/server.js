@@ -16,6 +16,21 @@ const routes = {
   '/dynamic': 'dynamic-site.html',
   '/gradient': 'gradient-site.html',
   '/images': 'image-heavy-site.html',
+  '/grid-layout': 'grid-layout-site.html',
+  '/flexbox-spa': 'flexbox-spa.html',
+  '/shadow-dom': 'shadow-dom-site.html',
+  '/framework': 'framework-mock.html',
+  '/inline-styles': 'inline-style-site.html',
+  '/css-variables': 'css-variables-site.html',
+  '/fixed-overlay': 'fixed-overlay-site.html',
+  '/svg-heavy': 'svg-heavy-site.html',
+  '/data-table': 'data-table-site.html',
+  '/ecommerce': 'ecommerce-mock.html',
+  '/infinite-scroll': 'infinite-scroll.html',
+  '/dark-toggle': 'dark-toggle-site.html',
+  '/rtl': 'rtl-site.html',
+  '/print-media': 'print-media-site.html',
+  '/canvas': 'canvas-site.html',
 };
 
 for (const [route, file] of Object.entries(routes)) {

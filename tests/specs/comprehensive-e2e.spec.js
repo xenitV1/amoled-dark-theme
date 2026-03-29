@@ -1,24 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { launchExtension, openPopup, openTestPage, waitForThemeApplied, setPopupSetting } = require('../helpers/extension');
-
-function parseRGB(colorStr) {
-  if (!colorStr) return null;
-  const m = colorStr.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
-  return m ? { r: parseInt(m[1]), g: parseInt(m[2]), b: parseInt(m[3]) } : null;
-}
-
-function luminance(r, g, b) {
-  const [rs, gs, bs] = [r / 255, g / 255, b / 255].map(c =>
-    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
-  );
-  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
-}
-
-function contrastRatio(lum1, lum2) {
-  const lighter = Math.max(lum1, lum2);
-  const darker = Math.min(lum1, lum2);
-  return (lighter + 0.05) / (darker + 0.05);
-}
+const { parseRGB, luminance, contrastRatio } = require('../helpers/color-utils');
 
 // ─── 1. First Install Experience ───────────────────────────────────────────────
 
@@ -658,7 +640,7 @@ test.describe('6. Performance', () => {
     });
 
     expect(results.total).toBe(250);
-    expect(results.darkCount, `darkCount=${results.darkCount}, some elements should have been themed`).toBeGreaterThanOrEqual(0);
+    expect(results.darkCount, `darkCount=${results.darkCount} out of ${results.total}, at least some elements should have been themed`).toBeGreaterThan(0);
   });
 
   test('dynamic content: adding 50 elements rapidly should all get themed', async () => {
@@ -694,7 +676,7 @@ test.describe('6. Performance', () => {
     });
 
     expect(results.total).toBeGreaterThanOrEqual(50);
-    expect(results.darkCount, `dark=${results.darkCount} light=${results.lightCount}, extension should be active on dynamic page`).toBeGreaterThanOrEqual(0);
+    expect(results.darkCount, `dark=${results.darkCount} light=${results.lightCount}, dynamic elements should be themed`).toBeGreaterThan(0);
   });
 
   test('opening 5 tabs simultaneously should not freeze the browser', async () => {

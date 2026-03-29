@@ -35,6 +35,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true;
 });
 
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== "sync") return;
+  chrome.storage.sync.get(null, (settings) => {
+    const merged = { ...DEFAULTS, ...settings };
+    chrome.tabs.query({}, (tabs) => {
+      tabs.forEach(tab => {
+        if (tab.url && !tab.url.startsWith("chrome://") && !tab.url.startsWith("edge://") && !tab.url.startsWith("about:")) {
+          chrome.tabs.sendMessage(tab.id, { type: "settings-update", settings: merged }).catch(() => {});
+        }
+      });
+    });
+  });
+});
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete" && tab.url && !tab.url.startsWith("chrome://") && !tab.url.startsWith("edge://") && !tab.url.startsWith("about:")) {
     chrome.storage.sync.get(null, (settings) => {

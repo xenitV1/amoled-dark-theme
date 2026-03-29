@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inline Style Site (CSS-in-JS)</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; }
+  </style>
+</head>
+<body>
+  <nav style="background: #f8f9fa; padding: 12px 24px; display: flex; align-items: center; gap: 24px; border-bottom: 1px solid #dee2e6;">
+    <span style="font-weight: bold; font-size: 18px; color: #212529;">InlineApp</span>
+    <a href="#" style="color: #495057; text-decoration: none; font-size: 14px;">Dashboard</a>
+    <a href="#" style="color: #495057; text-decoration: none; font-size: 14px;">Projects</a>
+    <a href="#" style="color: #495057; text-decoration: none; font-size: 14px;">Settings</a>
+    <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
+      <div style="background: #e9ecef; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #495057; font-size: 13px;">JD</div>
+    </div>
+  </nav>
+
+  <div style="max-width: 960px; margin: 0 auto; padding: 32px 24px;">
+    <h1 style="color: #212529; font-size: 28px; margin-bottom: 8px;">Welcome back, John</h1>
+    <p style="color: #6c757d; font-size: 15px; margin-bottom: 32px;">Here's what's happening with your projects today.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px;">
+      <div style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px;">
+        <div style="font-size: 13px; color: #6c757d; margin-bottom: 8px;">Total Projects</div>
+        <div style="font-size: 28px; font-weight: bold; color: #212529;">12</div>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px;">
+        <div style="font-size: 13px; color: #6c757d; margin-bottom: 8px;">Active Tasks</div>
+        <div style="font-size: 28px; font-weight: bold; color: #212529;">47</div>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px;">
+        <div style="font-size: 13px; color: #6c757d; margin-bottom: 8px;">Completed</div>
+        <div style="font-size: 28px; font-weight: bold; color: #16a34a;">156</div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+      <input type="text" placeholder="Search projects..." style="flex: 1; padding: 10px 14px; border: 1px solid #dee2e6; border-radius: 6px; background: #ffffff; color: #333333; font-size: 14px;">
+      <button style="background: #007bff; color: #ffffff; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px;">New Project</button>
+      <button style="background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px;">Delete All</button>
+    </div>
+
+    <div id="card-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px;">
+      <div style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+          <h3 style="color: #212529; font-size: 16px; margin: 0;">Website Redesign</h3>
+          <span style="background: #d4edda; color: #155724; font-size: 12px; padding: 2px 8px; border-radius: 10px;">Active</span>
+        </div>
+        <p style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 12px;">Complete overhaul of the company website with new branding and improved UX.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 12px; color: #adb5bd;">Due: Mar 15, 2026</span>
+          <div style="background: #e9ecef; height: 6px; width: 100px; border-radius: 3px;"><div style="background: #007bff; height: 100%; width: 65%; border-radius: 3px;"></div></div>
+        </div>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+          <h3 style="color: #212529; font-size: 16px; margin: 0;">Mobile App v2</h3>
+          <span style="background: #fff3cd; color: #856404; font-size: 12px; padding: 2px 8px; border-radius: 10px;">In Review</span>
+        </div>
+        <p style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 12px;">Second version of the mobile application with offline support and push notifications.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 12px; color: #adb5bd;">Due: Apr 1, 2026</span>
+          <div style="background: #e9ecef; height: 6px; width: 100px; border-radius: 3px;"><div style="background: #ffc107; height: 100%; width: 85%; border-radius: 3px;"></div></div>
+        </div>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+          <h3 style="color: #212529; font-size: 16px; margin: 0;">API Migration</h3>
+          <span style="background: #f8d7da; color: #721c24; font-size: 12px; padding: 2px 8px; border-radius: 10px;">Delayed</span>
+        </div>
+        <p style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 12px;">Migrate REST APIs to GraphQL with full backward compatibility.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 12px; color: #adb5bd;">Due: Feb 28, 2026</span>
+          <div style="background: #e9ecef; height: 6px; width: 100px; border-radius: 3px;"><div style="background: #dc3545; height: 100%; width: 40%; border-radius: 3px;"></div></div>
+        </div>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+          <h3 style="color: #212529; font-size: 16px; margin: 0;">Design System</h3>
+          <span style="background: #d4edda; color: #155724; font-size: 12px; padding: 2px 8px; border-radius: 10px;">Active</span>
+        </div>
+        <p style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 12px;">Building a shared component library and design tokens for all products.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 12px; color: #adb5bd;">Due: May 20, 2026</span>
+          <div style="background: #e9ecef; height: 6px; width: 100px; border-radius: 3px;"><div style="background: #007bff; height: 100%; width: 25%; border-radius: 3px;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="color: #212529; font-size: 20px; margin-bottom: 16px;">Team Members</h2>
+    <table style="width: 100%; border-collapse: collapse; background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; overflow: hidden;">
+      <thead>
+        <tr style="background: #f8f9fa;">
+          <th style="text-align: left; padding: 12px 16px; font-size: 13px; color: #495057; border-bottom: 1px solid #dee2e6;">Name</th>
+          <th style="text-align: left; padding: 12px 16px; font-size: 13px; color: #495057; border-bottom: 1px solid #dee2e6;">Role</th>
+          <th style="text-align: left; padding: 12px 16px; font-size: 13px; color: #495057; border-bottom: 1px solid #dee2e6;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #e9ecef;">
+          <td style="padding: 12px 16px; font-size: 14px; color: #333333;">Alice Johnson</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #6c757d;">Designer</td>
+          <td style="padding: 12px 16px;"><span style="background: #d4edda; color: #155724; font-size: 12px; padding: 2px 8px; border-radius: 10px;">Online</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e9ecef;">
+          <td style="padding: 12px 16px; font-size: 14px; color: #333333;">Bob Smith</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #6c757d;">Engineer</td>
+          <td style="padding: 12px 16px;"><span style="background: #f8f9fa; color: #6c757d; font-size: 12px; padding: 2px 8px; border-radius: 10px;">Offline</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 16px; font-size: 14px; color: #333333;">Carol White</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #6c757d;">PM</td>
+          <td style="padding: 12px 16px;"><span style="background: #d4edda; color: #155724; font-size: 12px; padding: 2px 8px; border-radius: 10px;">Online</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="dynamic-area" style="max-width: 960px; margin: 0 auto; padding: 0 24px 32px;"></div>
+
+  <script>
+    setTimeout(() => {
+      const area = document.getElementById('dynamic-area');
+      const notification = document.createElement('div');
+      notification.setAttribute('style', 'background: #ffffff; border: 1px solid #e9ecef; border-left: 4px solid #007bff; border-radius: 6px; padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;');
+      notification.innerHTML = '<div style="color: #007bff; font-size: 20px;">&#9432;</div><div><div style="font-size: 14px; color: #212529; font-weight: bold;">New notification</div><div style="font-size: 13px; color: #6c757d;">This element was added dynamically with inline styles.</div></div>';
+      area.appendChild(notification);
+
+      const btn = document.createElement('button');
+      btn.setAttribute('style', 'background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px;');
+      btn.textContent = 'Dynamically Added Button';
+      area.appendChild(btn);
+    }, 500);
+  </script>
+</body>
+</html>

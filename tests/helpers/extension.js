@@ -14,17 +14,9 @@ async function launchExtension({ headless = false } = {}) {
     ],
   });
 
-  let backgroundPage = null;
-  for (const page of context.pages()) {
-    const url = page.url();
-    if (url.startsWith('chrome-extension://') && url.includes('service-worker') || url.startsWith('chrome://')) {
-      continue;
-    }
-  }
-
-  const extensionId = getExtensionId(context);
+  const extensionId = await waitForExtension(context);
   
-  return { context, extensionId, backgroundPage };
+  return { context, extensionId };
 }
 
 function getExtensionId(context) {
@@ -130,10 +122,43 @@ async function setPopupSetting(popup, setting, value) {
   }
 }
 
+async function waitForExtension(context, timeout = 10000) {
+  const start = Date.now();
+  while (Date.now() - start < timeout) {
+    const id = getExtensionId(context);
+    if (id) return id;
+    await new Promise(r => setTimeout(r, 300));
+  }
+  return null;
+}
+
+async function resetExtensionSettings(context, extensionId) {
+  const DEFAULTS = {
+    enabled: true,
+    brightness: 75,
+    imageFilter: false,
+    imageBrightness: 80,
+    customCSS: "",
+    bgMode: "pure",
+    contrastLevel: "normal",
+    lang: "tr"
+  };
+  const popup = await openPopup(context, extensionId);
+  if (!popup) return;
+  await popup.evaluate((defaults) => {
+    return new Promise((resolve) => {
+      chrome.storage.sync.set(defaults, resolve);
+    });
+  }, DEFAULTS);
+  await new Promise(r => setTimeout(r, 500));
+  await popup.close();
+}
+
 async function waitForThemeApplied(page, timeout = 3000) {
   await page.waitForFunction(() => {
     return document.documentElement.classList.contains('amoled-active') &&
            (document.documentElement.style.getPropertyValue('--amoled-text-color') !== '' ||
+            document.documentElement.style.getPropertyValue('--amoled-bg') !== '' ||
             document.getElementById('amoled-base') !== null);
   }, { timeout }).catch(() => false);
 }
@@ -147,5 +172,7 @@ module.exports = {
   getExtensionSettings,
   setPopupSetting,
   waitForThemeApplied,
+  waitForExtension,
+  resetExtensionSettings,
   EXTENSION_PATH,
 };

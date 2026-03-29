@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flexbox SPA</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background: #ffffff; color: #333333; }
+    .app { display: flex; flex-direction: column; height: 100vh; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      padding: 0 20px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+    .topbar .logo { font-weight: bold; font-size: 18px; color: #212529; margin-right: 32px; }
+    .topbar nav { display: flex; gap: 20px; flex-grow: 1; }
+    .topbar nav a { color: #495057; text-decoration: none; font-size: 14px; padding: 6px 0; }
+    .topbar nav a.active { color: #007bff; border-bottom: 2px solid #007bff; }
+    .topbar .user-area { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+      width: 32px; height: 32px; border-radius: 50%; background: #e9ecef;
+      display: flex; align-items: center; justify-content: center; font-size: 14px; color: #495057;
+    }
+    .content-area { display: flex; flex: 1; overflow: hidden; }
+    .sidebar {
+      width: 260px;
+      background: #f0f0f0;
+      border-right: 1px solid #dee2e6;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar-header { padding: 16px; border-bottom: 1px solid #dee2e6; font-weight: bold; color: #212529; }
+    .sidebar-list { list-style: none; padding: 8px 0; }
+    .sidebar-list li {
+      padding: 10px 16px; font-size: 14px; color: #495057; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .sidebar-list li:hover { background: #e2e6ea; }
+    .sidebar-list li.active { background: #ffffff; color: #007bff; border-left: 3px solid #007bff; }
+    .main-panel { display: flex; flex: 1; overflow: hidden; }
+    .chat-area { display: flex; flex-direction: column; flex: 1; background: #ffffff; }
+    .chat-header {
+      padding: 12px 20px; background: #f8f9fa; border-bottom: 1px solid #dee2e6;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .chat-header h3 { font-size: 15px; color: #212529; }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+    .message {
+      max-width: 70%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4;
+    }
+    .message.received { background: #f0f0f0; color: #333333; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .message.sent { background: #007bff; color: #ffffff; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .message .meta { font-size: 11px; margin-top: 4px; opacity: 0.7; }
+    .chat-input {
+      display: flex; align-items: center; gap: 8px; padding: 12px 20px;
+      background: #f8f9fa; border-top: 1px solid #dee2e6;
+    }
+    .chat-input input {
+      flex: 1; padding: 10px 14px; border: 1px solid #dee2e6; border-radius: 20px;
+      background: #ffffff; color: #333333; font-size: 14px; outline: none;
+    }
+    .chat-input button {
+      background: #007bff; color: #ffffff; border: none; padding: 10px 20px;
+      border-radius: 20px; cursor: pointer; font-size: 14px;
+    }
+    .right-panel {
+      width: 280px; background: #f8f9fa; border-left: 1px solid #dee2e6;
+      display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;
+    }
+    .profile-card {
+      background: #ffffff; border-radius: 8px; margin: 16px; padding: 20px;
+      display: flex; flex-direction: column; align-items: center; border: 1px solid #e9ecef;
+    }
+    .profile-card .avatar-lg {
+      width: 64px; height: 64px; border-radius: 50%; background: #e9ecef;
+      display: flex; align-items: center; justify-content: center; font-size: 24px; color: #495057;
+      margin-bottom: 12px;
+    }
+    .profile-card h4 { color: #212529; margin-bottom: 4px; }
+    .profile-card p { font-size: 13px; color: #6c757d; margin-bottom: 12px; }
+    .profile-card .status { font-size: 12px; color: #28a745; background: #d4edda; padding: 2px 8px; border-radius: 10px; }
+    .shared-files { padding: 0 16px; }
+    .shared-files h5 { color: #212529; font-size: 13px; margin-bottom: 8px; }
+    .file-item {
+      background: #ffffff; border: 1px solid #e9ecef; border-radius: 6px;
+      padding: 8px 12px; margin-bottom: 6px; font-size: 13px; color: #495057;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .file-item span.size { color: #adb5bd; font-size: 12px; }
+    .members { padding: 16px; }
+    .members h5 { color: #212529; font-size: 13px; margin-bottom: 8px; }
+    .member {
+      display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; color: #495057;
+    }
+    .member .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .member .dot.online { background: #28a745; }
+    .member .dot.offline { background: #adb5bd; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="logo">FlexChat</div>
+      <nav>
+        <a href="#" class="active">Messages</a>
+        <a href="#">Channels</a>
+        <a href="#">Tasks</a>
+        <a href="#">Calendar</a>
+      </nav>
+      <div class="user-area">
+        <div class="avatar">JD</div>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="sidebar">
+        <div class="sidebar-header">Conversations</div>
+        <ul class="sidebar-list">
+          <li class="active">&#128172; Design Team</li>
+          <li>&#128172; Engineering</li>
+          <li>&#128172; Marketing</li>
+          <li>&#128100; Alice Johnson</li>
+          <li>&#128100; Bob Smith</li>
+          <li>&#128100; Carol White</li>
+          <li>&#128100; Dave Brown</li>
+          <li>&#128172; Product</li>
+          <li>&#128172; General</li>
+        </ul>
+      </div>
+      <div class="main-panel">
+        <div class="chat-area">
+          <div class="chat-header">
+            <h3>Design Team</h3>
+            <span style="font-size:13px;color:#6c757d;">4 members</span>
+          </div>
+          <div class="chat-messages">
+            <div class="message received">
+              <div>Hey team, I've uploaded the new mockups for the dashboard redesign.</div>
+              <div class="meta">Alice &middot; 9:30 AM</div>
+            </div>
+            <div class="message received">
+              <div>Let me know what you think about the color palette changes.</div>
+              <div class="meta">Alice &middot; 9:31 AM</div>
+            </div>
+            <div class="message sent">
+              <div>Looks great! I especially like the new card layout.</div>
+              <div class="meta">You &middot; 9:35 AM</div>
+            </div>
+            <div class="message received">
+              <div>I agree, the spacing feels much better now. Should we update the mobile views too?</div>
+              <div class="meta">Bob &middot; 9:40 AM</div>
+            </div>
+            <div class="message sent">
+              <div>Yes, let's schedule a sync to review mobile breakpoints tomorrow.</div>
+              <div class="meta">You &middot; 9:42 AM</div>
+            </div>
+            <div class="message received">
+              <div>Sounds good! I'll prepare the mobile mockups tonight.</div>
+              <div class="meta">Alice &middot; 9:45 AM</div>
+            </div>
+            <div class="message received">
+              <div>Don't forget we have the stakeholder review on Friday.</div>
+              <div class="meta">Carol &middot; 9:50 AM</div>
+            </div>
+          </div>
+          <div class="chat-input">
+            <input type="text" placeholder="Type a message...">
+            <button>Send</button>
+          </div>
+        </div>
+        <div class="right-panel">
+          <div class="profile-card">
+            <div class="avatar-lg">DS</div>
+            <h4>Design Team</h4>
+            <p>Product design channel</p>
+            <div class="status">Active</div>
+          </div>
+          <div class="shared-files">
+            <h5>Shared Files</h5>
+            <div class="file-item">dashboard-v2.fig <span class="size">2.4 MB</span></div>
+            <div class="file-item">colors.png <span class="size">156 KB</span></div>
+            <div class="file-item">notes.md <span class="size">12 KB</span></div>
+          </div>
+          <div class="members">
+            <h5>Members</h5>
+            <div class="member"><div class="dot online"></div>Alice Johnson</div>
+            <div class="member"><div class="dot online"></div>Bob Smith</div>
+            <div class="member"><div class="dot online"></div>Carol White</div>
+            <div class="member"><div class="dot offline"></div>Dave Brown</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

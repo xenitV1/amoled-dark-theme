@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Commerce Mock</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background: #f5f5f5; color: #333333; }
+    .topbar {
+      background: #ffffff; border-bottom: 1px solid #e0e0e0; padding: 12px 24px;
+      display: flex; align-items: center; gap: 24px;
+    }
+    .topbar .logo { font-weight: bold; font-size: 20px; color: #212529; }
+    .topbar .search {
+      flex: 1; max-width: 500px; padding: 8px 14px; border: 1px solid #ddd;
+      border-radius: 20px; background: #f8f9fa; color: #333; font-size: 14px; outline: none;
+    }
+    .topbar .cart-btn {
+      position: relative; background: none; border: none; font-size: 22px; cursor: pointer; color: #495057;
+    }
+    .cart-badge {
+      position: absolute; top: -6px; right: -8px; background: #dc3545; color: #ffffff;
+      font-size: 10px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .layout { display: flex; max-width: 1200px; margin: 24px auto; gap: 24px; padding: 0 24px; }
+    .category-sidebar {
+      width: 220px; flex-shrink: 0; background: #ffffff; border-radius: 8px;
+      padding: 16px; border: 1px solid #e0e0e0;
+    }
+    .category-sidebar h3 { font-size: 15px; color: #212529; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+    .category-item { padding: 8px 12px; font-size: 14px; color: #495057; cursor: pointer; border-radius: 4px; }
+    .category-item:hover { background: #f0f0f0; }
+    .category-item.active { background: #e3f2fd; color: #1976d2; font-weight: bold; }
+    .content { flex: 1; }
+    .breadcrumb { font-size: 13px; color: #6c757d; margin-bottom: 16px; }
+    .breadcrumb a { color: #007bff; text-decoration: none; }
+    .breadcrumb span { margin: 0 6px; }
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .product-card {
+      background: #ffffff; border-radius: 8px; border: 1px solid #e0e0e0;
+      overflow: hidden; transition: box-shadow 0.2s;
+    }
+    .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .product-img {
+      height: 180px; background: #f0f0f0; display: flex; align-items: center;
+      justify-content: center; color: #adb5bd; font-size: 14px;
+    }
+    .product-info { padding: 16px; }
+    .product-title { font-size: 14px; color: #212529; margin-bottom: 8px; font-weight: bold; }
+    .product-rating { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+    .star { color: #ffc107; font-size: 14px; }
+    .star.empty { color: #dee2e6; }
+    .rating-count { font-size: 12px; color: #6c757d; margin-left: 4px; }
+    .product-price { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .price { font-size: 18px; font-weight: bold; color: #16a34a; }
+    .old-price { font-size: 14px; color: #adb5bd; text-decoration: line-through; }
+    .discount-badge { background: #dc3545; color: #ffffff; font-size: 11px; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+    .add-to-cart {
+      width: 100%; padding: 10px; background: #ff6f00; color: #ffffff; border: none;
+      border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: bold;
+    }
+    .add-to-cart:hover { background: #e65100; }
+    .wishlist-btn {
+      position: absolute; top: 8px; right: 8px; background: #ffffff; border: none;
+      width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;
+    }
+    .product-img-wrapper { position: relative; }
+    .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .filter-chip {
+      padding: 6px 14px; background: #ffffff; border: 1px solid #dee2e6; border-radius: 20px;
+      font-size: 13px; color: #495057; cursor: pointer;
+    }
+    .filter-chip.active { background: #1976d2; color: #ffffff; border-color: #1976d2; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="logo">ShopMart</span>
+    <input class="search" type="text" placeholder="Search products, brands, and more...">
+    <button class="cart-btn">
+      &#128722;
+      <span class="cart-badge">3</span>
+    </button>
+  </div>
+  <div class="layout">
+    <aside class="category-sidebar">
+      <h3>Categories</h3>
+      <div class="category-item active">Electronics</div>
+      <div class="category-item">Clothing</div>
+      <div class="category-item">Home & Garden</div>
+      <div class="category-item">Sports</div>
+      <div class="category-item">Books</div>
+      <div class="category-item">Toys</div>
+      <div class="category-item">Beauty</div>
+      <div class="category-item">Automotive</div>
+    </aside>
+    <div class="content">
+      <div class="breadcrumb">
+        <a href="#">Home</a><span>&rsaquo;</span>
+        <a href="#">Electronics</a><span>&rsaquo;</span>
+        Headphones
+      </div>
+      <div class="filters">
+        <span class="filter-chip active">All</span>
+        <span class="filter-chip">Over-Ear</span>
+        <span class="filter-chip">In-Ear</span>
+        <span class="filter-chip">Wireless</span>
+        <span class="filter-chip">Noise Cancelling</span>
+        <span class="filter-chip">Under $50</span>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <div class="product-img" style="background:#e3f2fd;">&#127911;</div>
+            <button class="wishlist-btn">&#9825;</button>
+          </div>
+          <div class="product-info">
+            <div class="product-title">ProSound Max Over-Ear</div>
+            <div class="product-rating">
+              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+              <span class="rating-count">(2,341)</span>
+            </div>
+            <div class="product-price">
+              <span class="price">$79.99</span>
+              <span class="old-price">$129.99</span>
+              <span class="discount-badge">-38%</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <div class="product-img" style="background:#f3e5f5;">&#127911;</div>
+            <button class="wishlist-btn">&#9825;</button>
+          </div>
+          <div class="product-info">
+            <div class="product-title">BassWave Elite ANC</div>
+            <div class="product-rating">
+              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star empty">&#9733;</span>
+              <span class="rating-count">(876)</span>
+            </div>
+            <div class="product-price">
+              <span class="price">$149.99</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <div class="product-img" style="background:#e8f5e9;">&#127911;</div>
+            <button class="wishlist-btn">&#9825;</button>
+          </div>
+          <div class="product-info">
+            <div class="product-title">QuietPods Pro</div>
+            <div class="product-rating">
+              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+              <span class="rating-count">(5,102)</span>
+            </div>
+            <div class="product-price">
+              <span class="price">$199.99</span>
+              <span class="old-price">$249.99</span>
+              <span class="discount-badge">-20%</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <div class="product-img" style="background:#fff3e0;">&#127911;</div>
+            <button class="wishlist-btn">&#9825;</button>
+          </div>
+          <div class="product-info">
+            <div class="product-title">SportBuds Waterproof</div>
+            <div class="product-rating">
+              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span>
+              <span class="rating-count">(342)</span>
+            </div>
+            <div class="product-price">
+              <span class="price">$39.99</span>
+              <span class="old-price">$59.99</span>
+              <span class="discount-badge">-33%</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <div class="product-img" style="background:#fce4ec;">&#127911;</div>
+            <button class="wishlist-btn">&#9825;</button>
+          </div>
+          <div class="product-info">
+            <div class="product-title">Studio Monitor Pro</div>
+            <div class="product-rating">
+              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star empty">&#9733;</span>
+              <span class="rating-count">(1,205)</span>
+            </div>
+            <div class="product-price">
+              <span class="price">$299.99</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <div class="product-img" style="background:#e0f7fa;">&#127911;</div>
+            <button class="wishlist-btn">&#9825;</button>
+          </div>
+          <div class="product-info">
+            <div class="product-title">BudgetBuds Basic</div>
+            <div class="product-rating">
+              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star empty">&#9733;</span><span class="star empty">&#9733;</span>
+              <span class="rating-count">(789)</span>
+            </div>
+            <div class="product-price">
+              <span class="price">$19.99</span>
+              <span class="old-price">$29.99</span>
+              <span class="discount-badge">-33%</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -6,7 +6,8 @@
     imageBrightness: 80,
     customCSS: "",
     bgMode: "pure",
-    contrastLevel: "normal"
+    contrastLevel: "normal",
+    lang: "tr"
   };
 
   var currentSettings = {};
@@ -20,6 +21,42 @@
   var SKIP_TAGS = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "META", "LINK", "HEAD", "SVG", "IMG", "VIDEO", "CANVAS", "PICTURE", "IFRAME", "EMBED", "OBJECT", "MATH", "TEMPLATE"]);
   var SKIP_ROLES = new Set(["img", "button", "checkbox", "radio", "slider", "meter", "progressbar", "switch"]);
   var ICON_CLASS_PREFIXES = ["fa-", "fa ", "icon-", "material-icon", "glyphicon", "bi-", "iconfont", "ti-", "la-", "ri-", "ph-", "tabler-", "lucide-", "heroicon-", "uim-", "devicon-"];
+
+  var SITE_OVERRIDE_PROPS = [
+    "--color-canvas-default", "--color-canvas-subtle", "--color-canvas-inset",
+    "--color-canvas-muted", "--color-fg-default", "--color-fg-muted",
+    "--color-fg-subtle", "--color-border-default", "--color-border-muted",
+    "--color-neutral-muted", "--color-header-bg", "--color-header-text",
+    "--color-btn-primary-bg", "--color-btn-primary-text", "--color-btn-bg",
+    "--color-btn-text", "--color-btn-border", "--color-btn-hover-bg",
+    "--color-overlay-bg", "--color-danger-fg", "--color-success-fg",
+    "--color-attention-fg", "--bgColor-default", "--bgColor-muted",
+    "--bgColor-inset", "--bgColor-canvas-default", "--bgColor-canvas-inset",
+    "--bgColor-canvas-subtle", "--fgColor-default", "--fgColor-muted",
+    "--fgColor-subtle", "--borderColor-default", "--borderColor-muted",
+    "--scale-fg", "--tooltip-fg-color", "--tooltip-bg-color",
+    "--yt-spec-base-background", "--yt-spec-raised-background",
+    "--yt-spec-menu-background", "--yt-spec-general-background-a",
+    "--yt-spec-general-background-b", "--yt-spec-general-background-c",
+    "--yt-spec-text-primary", "--yt-spec-text-secondary",
+    "--yt-spec-text-disabled", "--yt-spec-brand-link",
+    "--yt-spec-brand-link-text", "--yt-spec-explore-background",
+    "--yt-spec-badge-chip-background", "--yt-spec-inset",
+    "--yt-spec-call-to-action-background", "--yt-spec-hover-overlay",
+    "--yt-spec-active-overlay", "--yt-spec-10-percent-layer",
+    "--yt-spec-chip-background", "--yt-spec-touch-response",
+    "--reddit-background", "--reddit-background-hover",
+    "--reddit-secondary-background", "--reddit-foreground",
+    "--reddit-secondary-foreground", "--reddit-secondary-foreground-dimmed",
+    "--color-background-primary", "--color-background-secondary",
+    "--color-background-tertiary", "--color-text-primary",
+    "--color-text-secondary", "--color-text-tertiary",
+    "--bg-0", "--bg-1", "--bg-2", "--bg-3",
+    "--text-0", "--text-1", "--text-2",
+    "--background-color-base", "--background-color-neutral-subtle",
+    "--background-color-interactive-subtle", "--color-base",
+    "--color-subtle", "--color-emphasized", "--border-color-subtle"
+];
 
   function hexToRgb(hex) {
     if (!hex || hex.charAt(0) !== "#") return null;
@@ -35,7 +72,7 @@
     if (!colorStr || colorStr === "transparent" || colorStr === "inherit" || colorStr === "initial" || colorStr === "currentcolor") return null;
     colorStr = colorStr.trim();
     if (colorStr.charAt(0) === "#") return hexToRgb(colorStr);
-    var m = colorStr.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+    var m = colorStr.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([0-9.]+))?/i);
     if (m) {
       var a = 1;
       if (m[4] !== undefined) {
@@ -287,9 +324,6 @@
         "div[data-testid=\"toast\"] { background-color: " + surfaceColor + " !important; }",
         "a { color: " + textColor + " !important; }",
         "a[href] { color: " + textColor + " !important; }",
-        "span { color: " + textColor + " !important; }",
-        "p { color: " + textColor + " !important; }",
-        "div { color: " + textColor + " !important; }",
         "[data-testid=\"tweetText\"] { color: " + textColor + " !important; }",
         "[data-testid=\"tweetText\"] span { color: " + textColor + " !important; }",
         "time { color: " + mutedText + " !important; }",
@@ -470,41 +504,7 @@
     root.style.removeProperty("--amoled-text-color");
     root.style.removeProperty("--amoled-bg");
     root.style.removeProperty("--amoled-surface");
-    var props = [
-      "--color-canvas-default", "--color-canvas-subtle", "--color-canvas-inset",
-      "--color-canvas-muted", "--color-fg-default", "--color-fg-muted",
-      "--color-fg-subtle", "--color-border-default", "--color-border-muted",
-      "--color-neutral-muted", "--color-header-bg", "--color-header-text",
-      "--color-btn-primary-bg", "--color-btn-primary-text", "--color-btn-bg",
-      "--color-btn-text", "--color-btn-border", "--color-btn-hover-bg",
-      "--color-overlay-bg", "--color-danger-fg", "--color-success-fg",
-      "--color-attention-fg", "--bgColor-default", "--bgColor-muted",
-      "--bgColor-inset", "--bgColor-canvas-default", "--bgColor-canvas-inset",
-      "--bgColor-canvas-subtle", "--fgColor-default", "--fgColor-muted",
-      "--fgColor-subtle", "--borderColor-default", "--borderColor-muted",
-      "--scale-fg", "--tooltip-fg-color", "--tooltip-bg-color",
-      "--yt-spec-base-background", "--yt-spec-raised-background",
-      "--yt-spec-menu-background", "--yt-spec-general-background-a",
-      "--yt-spec-general-background-b", "--yt-spec-general-background-c",
-      "--yt-spec-text-primary", "--yt-spec-text-secondary",
-      "--yt-spec-text-disabled", "--yt-spec-brand-link",
-      "--yt-spec-brand-link-text", "--yt-spec-explore-background",
-      "--yt-spec-badge-chip-background", "--yt-spec-inset",
-      "--yt-spec-call-to-action-background", "--yt-spec-hover-overlay",
-      "--yt-spec-active-overlay", "--yt-spec-10-percent-layer",
-      "--yt-spec-chip-background", "--yt-spec-touch-response",
-      "--reddit-background", "--reddit-background-hover",
-      "--reddit-secondary-background", "--reddit-foreground",
-      "--reddit-secondary-foreground", "--reddit-secondary-foreground-dimmed",
-      "--color-background-primary", "--color-background-secondary",
-      "--color-background-tertiary", "--color-text-primary",
-      "--color-text-secondary", "--color-text-tertiary",
-      "--bg-0", "--bg-1", "--bg-2", "--bg-3",
-      "--text-0", "--text-1", "--text-2",
-      "--background-color-base", "--background-color-neutral-subtle",
-      "--background-color-interactive-subtle", "--color-base",
-      "--color-subtle", "--color-emphasized", "--border-color-subtle"
-    ];
+    var props = SITE_OVERRIDE_PROPS;
     for (var i = 0; i < props.length; i++) {
       root.style.removeProperty(props[i]);
     }
@@ -564,6 +564,7 @@
           if (isDarkSite) {
             applyTextOnlyCSS(currentSettings);
           } else {
+            processElement(batch[i], currentSettings);
             walkDOM(batch[i], currentSettings, true);
           }
         } catch (e) {}
@@ -586,10 +587,18 @@
     observer = new MutationObserver(function(mutations) {
       if (!currentSettings.enabled) return;
       for (var m = 0; m < mutations.length; m++) {
-        var added = mutations[m].addedNodes;
-        for (var n = 0; n < added.length; n++) {
-          if (added[n].nodeType === 1) {
-            pendingNodes.push(added[n]);
+        var mutation = mutations[m];
+        if (mutation.type === "attributes") {
+          var target = mutation.target;
+          if (target.nodeType === 1 && !isElementProtected(target)) {
+            pendingNodes.push(target);
+          }
+        } else {
+          var added = mutation.addedNodes;
+          for (var n = 0; n < added.length; n++) {
+            if (added[n].nodeType === 1) {
+              pendingNodes.push(added[n]);
+            }
           }
         }
       }

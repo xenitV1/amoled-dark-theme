@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Infinite Scroll Site</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background: #ffffff; color: #333333; }
+    .app { display: flex; flex-direction: column; height: 100vh; }
+    header {
+      background: #f8f9fa; border-bottom: 1px solid #dee2e6;
+      padding: 16px 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+    }
+    header h1 { font-size: 20px; color: #212529; }
+    header .count { font-size: 13px; color: #6c757d; }
+    .scroll-container {
+      flex: 1; overflow-y: auto; padding: 24px; max-width: 680px; margin: 0 auto; width: 100%;
+    }
+    .item {
+      background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px;
+      padding: 20px; margin-bottom: 16px; transition: box-shadow 0.2s;
+    }
+    .item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .item-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .item-avatar {
+      width: 40px; height: 40px; border-radius: 50%; background: #e9ecef;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #495057; font-weight: bold;
+    }
+    .item-author { font-size: 14px; font-weight: bold; color: #212529; }
+    .item-time { font-size: 12px; color: #adb5bd; }
+    .item-title { font-size: 16px; font-weight: bold; color: #212529; margin-bottom: 8px; }
+    .item-body { font-size: 14px; color: #6c757d; line-height: 1.6; margin-bottom: 12px; }
+    .item-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag {
+      background: #f0f0f0; color: #495057; font-size: 12px; padding: 3px 10px;
+      border-radius: 12px; border: 1px solid #e9ecef;
+    }
+    .item-actions { display: flex; gap: 16px; margin-top: 12px; }
+    .action-btn {
+      background: none; border: none; color: #6c757d; font-size: 13px; cursor: pointer;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .action-btn:hover { color: #007bff; }
+    .sentinel {
+      text-align: center; padding: 20px; color: #6c757d; font-size: 14px;
+    }
+    .sentinel.loading::after {
+      content: ''; display: inline-block; width: 16px; height: 16px;
+      border: 2px solid #dee2e6; border-top-color: #007bff; border-radius: 50%;
+      animation: spin 0.6s linear infinite; margin-left: 8px; vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .end-message { text-align: center; padding: 20px; color: #adb5bd; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Infinite Feed</h1>
+      <span class="count" id="item-count">0 items loaded</span>
+    </header>
+    <div class="scroll-container" id="scroll-container">
+      <div id="items-container"></div>
+      <div class="sentinel" id="sentinel">Loading more items...</div>
+    </div>
+  </div>
+
+  <script>
+    const authors = [
+      { name: 'Alice Johnson', initials: 'AJ' },
+      { name: 'Bob Smith', initials: 'BS' },
+      { name: 'Carol White', initials: 'CW' },
+      { name: 'Dave Brown', initials: 'DB' },
+      { name: 'Eve Foster', initials: 'EF' },
+      { name: 'Greg Harris', initials: 'GH' },
+      { name: 'Ivy Kim', initials: 'IK' },
+      { name: 'Jack Lee', initials: 'JL' },
+    ];
+    const titles = [
+      'Getting Started with Modern Web Development',
+      'Understanding CSS Grid Layout',
+      'Building Real-time Applications with WebSockets',
+      'A Guide to Responsive Design Patterns',
+      'Exploring WebAssembly for Performance',
+      'Introduction to TypeScript Generics',
+      'State Management in Complex Applications',
+      'Optimizing Core Web Vitals',
+      'Progressive Web Apps: A Complete Guide',
+      'Testing Strategies for Frontend Code',
+      'Accessibility Best Practices for the Web',
+      'Designing Effective REST APIs',
+      'Server-Side Rendering vs Static Generation',
+      'Containerization with Docker for Developers',
+      'Continuous Integration Best Practices',
+      'Database Indexing Strategies',
+      'Microservices Architecture Patterns',
+      'Event-Driven Architecture Explained',
+      'GraphQL vs REST: When to Choose What',
+      'Infrastructure as Code Fundamentals',
+      'Monitoring and Observability in Production',
+      'Security Headers Every Website Should Use',
+      'Content Security Policy Deep Dive',
+      'Functional Programming Concepts in JavaScript',
+      'Concurrency Models in Modern Runtimes',
+      'Building Design Systems at Scale',
+      'Animation Performance Optimization',
+      'Web Components: The Future of Reusable UI',
+      'Service Worker Lifecycle and Caching',
+      'HTTP/3 and QUIC: Next-Gen Protocols',
+      'Edge Computing for Web Applications',
+      'Machine Learning in the Browser with TF.js',
+      'WebRTC for Real-Time Communication',
+      'Internationalization and Localization Tips',
+      'SVG Animation Techniques',
+      'Color Theory for Developers',
+      'Typography Best Practices for the Web',
+      'Browser Rendering Pipeline Explained',
+      'Memory Management in JavaScript',
+      'Build Tool Comparison: Webpack vs Vite',
+      'CSS Container Queries in Practice',
+      'Modern Authentication Flows',
+      'Web Performance Budget Strategies',
+      'The State of CSS in 2026',
+      'Building Browser Extensions',
+      'WebGPU: The Next Graphics API',
+      'Audio Processing with Web Audio API',
+      'Offline-First Application Design',
+      'Structured Data and SEO',
+      'Web Sustainability and Green Computing',
+    ];
+    const tagSets = [
+      ['javascript', 'web'], ['css', 'design'], ['performance', 'optimization'],
+      ['react', 'frontend'], ['node', 'backend'], ['devops', 'cloud'],
+      ['security', 'auth'], ['testing', 'quality'], ['accessibility', 'ux'],
+      ['typescript', 'tools'], ['architecture', 'patterns'], ['mobile', 'pwa'],
+    ];
+
+    let itemIndex = 0;
+    const totalItems = 60;
+    const itemsPerPage = 10;
+    let loading = false;
+    let allLoaded = false;
+
+    const container = document.getElementById('items-container');
+    const sentinel = document.getElementById('sentinel');
+    const countEl = document.getElementById('item-count');
+
+    function createItem(index) {
+      const author = authors[index % authors.length];
+      const title = titles[index % titles.length];
+      const tags = tagSets[index % tagSets.length];
+      const hoursAgo = Math.floor(Math.random() * 72) + 1;
+      const likes = Math.floor(Math.random() * 200);
+      const comments = Math.floor(Math.random() * 50);
+
+      const item = document.createElement('div');
+      item.className = 'item';
+      item.innerHTML = `
+        <div class="item-header">
+          <div class="item-avatar">${author.initials}</div>
+          <div>
+            <div class="item-author">${author.name}</div>
+            <div class="item-time">${hoursAgo}h ago</div>
+          </div>
+        </div>
+        <div class="item-title">${title}</div>
+        <div class="item-body">An in-depth exploration of the topic covering fundamental concepts, practical applications, and real-world examples that help you understand the key principles involved.</div>
+        <div class="item-tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <div class="item-actions">
+          <button class="action-btn">&#9650; ${likes}</button>
+          <button class="action-btn">&#128172; ${comments}</button>
+          <button class="action-btn">&#128279; Share</button>
+        </div>
+      `;
+      return item;
+    }
+
+    function loadItems() {
+      if (loading || allLoaded) return;
+      loading = true;
+      sentinel.classList.add('loading');
+
+      setTimeout(() => {
+        const end = Math.min(itemIndex + itemsPerPage, totalItems);
+        for (let i = itemIndex; i < end; i++) {
+          container.appendChild(createItem(i));
+        }
+        itemIndex = end;
+        countEl.textContent = `${itemIndex} items loaded`;
+        loading = false;
+        sentinel.classList.remove('loading');
+
+        if (itemIndex >= totalItems) {
+          allLoaded = true;
+          sentinel.style.display = 'none';
+          const endMsg = document.createElement('div');
+          endMsg.className = 'end-message';
+          endMsg.textContent = 'You\'ve reached the end!';
+          container.parentElement.appendChild(endMsg);
+        }
+      }, 500);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) loadItems();
+    }, { root: document.getElementById('scroll-container'), threshold: 0.1 });
+
+    observer.observe(sentinel);
+    loadItems();
+  </script>
+</body>
+</html>

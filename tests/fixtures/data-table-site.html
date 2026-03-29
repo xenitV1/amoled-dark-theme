@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Table Site</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background: #ffffff; color: #333333; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    nav { background: #f8f9fa; border-bottom: 1px solid #dee2e6; padding: 12px 24px; display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
+    nav .logo { font-weight: bold; font-size: 18px; color: #212529; }
+    nav a { color: #495057; text-decoration: none; font-size: 14px; }
+    h1 { color: #212529; margin-bottom: 8px; font-size: 22px; }
+    .subtitle { color: #6c757d; margin-bottom: 24px; font-size: 14px; }
+    .toolbar {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .search-input {
+      padding: 8px 14px; border: 1px solid #dee2e6; border-radius: 6px;
+      background: #ffffff; color: #333333; font-size: 14px; width: 240px; outline: none;
+    }
+    .filter-select {
+      padding: 8px 12px; border: 1px solid #dee2e6; border-radius: 6px;
+      background: #ffffff; color: #333333; font-size: 14px; outline: none;
+    }
+    .btn {
+      padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;
+    }
+    .btn-primary { background: #007bff; color: #ffffff; }
+    .btn-outline { background: #ffffff; color: #495057; border: 1px solid #dee2e6; }
+    .table-wrapper {
+      border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; max-height: 500px; overflow-y: auto;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead { position: sticky; top: 0; z-index: 10; }
+    th {
+      background: #f8f9fa; color: #495057; font-size: 13px; font-weight: 600;
+      padding: 12px 16px; text-align: left; border-bottom: 2px solid #dee2e6;
+      cursor: pointer; user-select: none; white-space: nowrap;
+    }
+    th:hover { background: #e9ecef; }
+    th .sort-icon { font-size: 10px; margin-left: 4px; color: #adb5bd; }
+    th.sorted .sort-icon { color: #007bff; }
+    td { padding: 10px 16px; font-size: 14px; color: #495057; border-bottom: 1px solid #e9ecef; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    tr:nth-child(odd) { background: #ffffff; }
+    tr:hover { background: #e9ecef; }
+    .status {
+      display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 12px; font-weight: 600;
+    }
+    .status.active { background: #d4edda; color: #155724; }
+    .status.inactive { background: #f8d7da; color: #721c24; }
+    .status.pending { background: #fff3cd; color: #856404; }
+    .status.archived { background: #e2e3e5; color: #383d41; }
+    .priority-high { color: #dc3545; font-weight: bold; }
+    .priority-medium { color: #ffc107; }
+    .priority-low { color: #28a745; }
+    .pagination {
+      display: flex; align-items: center; justify-content: space-between; padding: 16px 0;
+    }
+    .pagination-info { font-size: 13px; color: #6c757d; }
+    .pagination-buttons { display: flex; gap: 4px; }
+    .page-btn {
+      padding: 6px 12px; border: 1px solid #dee2e6; border-radius: 4px;
+      background: #ffffff; color: #495057; font-size: 13px; cursor: pointer;
+    }
+    .page-btn:hover { background: #e9ecef; }
+    .page-btn.active { background: #007bff; color: #ffffff; border-color: #007bff; }
+    .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .avatar-cell { display: flex; align-items: center; gap: 10px; }
+    .avatar-sm { width: 28px; height: 28px; border-radius: 50%; background: #e9ecef; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #495057; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="logo">DataAdmin</span>
+    <a href="#">Dashboard</a>
+    <a href="#">Users</a>
+    <a href="#" style="color:#007bff;font-weight:bold;">Projects</a>
+    <a href="#">Settings</a>
+  </nav>
+  <div class="container">
+    <h1>Projects</h1>
+    <p class="subtitle">Manage and monitor all projects across your organization.</p>
+
+    <div class="toolbar">
+      <input class="search-input" type="text" placeholder="Search projects...">
+      <select class="filter-select">
+        <option value="">All Statuses</option>
+        <option>Active</option>
+        <option>Pending</option>
+        <option>Inactive</option>
+        <option>Archived</option>
+      </select>
+      <select class="filter-select">
+        <option value="">All Priorities</option>
+        <option>High</option>
+        <option>Medium</option>
+        <option>Low</option>
+      </select>
+      <button class="btn btn-outline">&#8635; Reset</button>
+      <button class="btn btn-primary" style="margin-left:auto;">+ New Project</button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th class="sorted">Project Name <span class="sort-icon">&#9650;</span></th>
+            <th>Owner <span class="sort-icon">&#9650;&#9660;</span></th>
+            <th>Status <span class="sort-icon">&#9650;&#9660;</span></th>
+            <th>Priority <span class="sort-icon">&#9650;&#9660;</span></th>
+            <th>Budget <span class="sort-icon">&#9650;&#9660;</span></th>
+            <th>Deadline <span class="sort-icon">&#9650;&#9660;</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Website Redesign</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">AJ</div>Alice J.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-high">High</td>
+            <td>$45,000</td>
+            <td>Mar 15, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Mobile App v2</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">BS</div>Bob S.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-high">High</td>
+            <td>$120,000</td>
+            <td>Apr 1, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>API Migration</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">CW</div>Carol W.</div></td>
+            <td><span class="status pending">Pending</span></td>
+            <td class="priority-medium">Medium</td>
+            <td>$30,000</td>
+            <td>Feb 28, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Design System</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">DB</div>Dave B.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-medium">Medium</td>
+            <td>$25,000</td>
+            <td>May 20, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Analytics Dashboard</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">AJ</div>Alice J.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-low">Low</td>
+            <td>$18,000</td>
+            <td>Jun 1, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Security Audit</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">EF</div>Eve F.</div></td>
+            <td><span class="status pending">Pending</span></td>
+            <td class="priority-high">High</td>
+            <td>$15,000</td>
+            <td>Mar 30, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Cloud Migration</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">GH</div>Greg H.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-high">High</td>
+            <td>$200,000</td>
+            <td>Jul 15, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Email Templates</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">IK</div>Ivy K.</div></td>
+            <td><span class="status inactive">Inactive</span></td>
+            <td class="priority-low">Low</td>
+            <td>$5,000</td>
+            <td>Jan 10, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Payment Gateway</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">JL</div>Jack L.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-high">High</td>
+            <td>$80,000</td>
+            <td>Apr 20, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>CI/CD Pipeline</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">BS</div>Bob S.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-medium">Medium</td>
+            <td>$12,000</td>
+            <td>Mar 1, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Onboarding Flow</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">CW</div>Carol W.</div></td>
+            <td><span class="status pending">Pending</span></td>
+            <td class="priority-medium">Medium</td>
+            <td>$22,000</td>
+            <td>May 5, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Search Optimization</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">EF</div>Eve F.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-medium">Medium</td>
+            <td>$35,000</td>
+            <td>Jun 15, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Documentation Site</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">DB</div>Dave B.</div></td>
+            <td><span class="status archived">Archived</span></td>
+            <td class="priority-low">Low</td>
+            <td>$8,000</td>
+            <td>Dec 1, 2025</td>
+          </tr>
+          <tr>
+            <td><strong>Performance Monitoring</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">GH</div>Greg H.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-high">High</td>
+            <td>$55,000</td>
+            <td>Apr 10, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Localization</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">IK</div>Ivy K.</div></td>
+            <td><span class="status inactive">Inactive</span></td>
+            <td class="priority-low">Low</td>
+            <td>$10,000</td>
+            <td>Feb 15, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Chat System</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">JL</div>Jack L.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-medium">Medium</td>
+            <td>$65,000</td>
+            <td>May 30, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Billing System</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">AJ</div>Alice J.</div></td>
+            <td><span class="status pending">Pending</span></td>
+            <td class="priority-high">High</td>
+            <td>$90,000</td>
+            <td>Jul 1, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Notification Service</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">BS</div>Bob S.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-medium">Medium</td>
+            <td>$20,000</td>
+            <td>Mar 25, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>User Feedback Tool</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">CW</div>Carol W.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-low">Low</td>
+            <td>$14,000</td>
+            <td>Jun 20, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Admin Panel</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">EF</div>Eve F.</div></td>
+            <td><span class="status inactive">Inactive</span></td>
+            <td class="priority-medium">Medium</td>
+            <td>$40,000</td>
+            <td>Jan 30, 2026</td>
+          </tr>
+          <tr>
+            <td><strong>Backup System</strong></td>
+            <td><div class="avatar-cell"><div class="avatar-sm">GH</div>Greg H.</div></td>
+            <td><span class="status active">Active</span></td>
+            <td class="priority-high">High</td>
+            <td>$28,000</td>
+            <td>Apr 5, 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <span class="pagination-info">Showing 1-22 of 22 results</span>
+      <div class="pagination-buttons">
+        <button class="page-btn" disabled>&laquo; Prev</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">Next &raquo;</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

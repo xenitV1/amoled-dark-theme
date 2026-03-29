@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dark Toggle Site</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text: #333333;
+      --text-muted: #6c757d;
+      --card-bg: #ffffff;
+      --border: #dee2e6;
+      --primary: #007bff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-manual-theme]) {
+        --bg: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --text: #e0e0e0;
+        --text-muted: #a0a0a0;
+        --card-bg: #2d2d2d;
+        --border: #3d3d3d;
+        --primary: #4da6ff;
+      }
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a1a;
+      --bg-secondary: #2d2d2d;
+      --text: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --card-bg: #2d2d2d;
+      --border: #3d3d3d;
+      --primary: #4da6ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+    nav {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex; align-items: center; gap: 24px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    nav .logo { font-weight: bold; font-size: 18px; color: var(--text); }
+    nav a { color: var(--primary); text-decoration: none; font-size: 14px; }
+    .theme-toggle {
+      margin-left: auto; background: var(--primary); color: #ffffff; border: none;
+      padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 13px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .container { max-width: 800px; margin: 0 auto; padding: 32px 24px; }
+    h1 { color: var(--text); margin-bottom: 8px; }
+    h2 { color: var(--text); margin: 24px 0 16px; font-size: 20px; }
+    .subtitle { color: var(--text-muted); margin-bottom: 32px; }
+    .mode-indicator {
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px; margin-bottom: 24px; text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .mode-indicator .mode { font-size: 24px; font-weight: bold; color: var(--text); }
+    .mode-indicator .hint { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px; margin-bottom: 16px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .card h3 { color: var(--text); font-size: 16px; margin-bottom: 8px; }
+    .card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+    .btn {
+      display: inline-block; padding: 10px 20px; border-radius: 6px; border: none;
+      cursor: pointer; font-size: 14px;
+    }
+    .btn-primary { background: var(--primary); color: #ffffff; }
+    .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    input, textarea {
+      width: 100%; padding: 10px 12px; border: 1px solid var(--border);
+      border-radius: 6px; background: var(--card-bg); color: var(--text);
+      font-size: 14px; outline: none; transition: border-color 0.2s, background 0.3s;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 14px; color: var(--text); margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="logo">ThemeSite</span>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Blog</a>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="toggle-icon">&#9788;</span> Toggle Theme
+    </button>
+  </nav>
+  <div class="container">
+    <h1>Dark/Light Mode Demo</h1>
+    <p class="subtitle">This site has its own dark mode toggle. It starts in light mode and uses both CSS media queries and JavaScript toggling.</p>
+
+    <div class="mode-indicator">
+      <div class="mode" id="mode-text">&#9788; Light Mode</div>
+      <div class="hint">Click "Toggle Theme" in the navigation to switch</div>
+    </div>
+
+    <div class="card">
+      <h3>About This Page</h3>
+      <p>This page tests how the AMOLED Black extension interacts with websites that already have their own dark/light mode implementation. The site uses CSS custom properties that change based on the active theme.</p>
+    </div>
+
+    <div class="card">
+      <h3>How It Works</h3>
+      <p>The page checks <code>prefers-color-scheme</code> via media query and also provides a manual toggle button. When toggled, a <code>data-theme="dark"</code> attribute is set on the root element.</p>
+    </div>
+
+    <h2>Interactive Elements</h2>
+    <div class="card">
+      <div class="form-group">
+        <label>Search</label>
+        <input type="text" placeholder="Type something...">
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea rows="3" placeholder="Write something..."></textarea>
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <button class="btn btn-primary">Save</button>
+        <button class="btn btn-outline">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.removeAttribute('data-theme');
+        html.removeAttribute('data-manual-theme');
+        document.getElementById('mode-text').innerHTML = '&#9788; Light Mode';
+        document.getElementById('toggle-icon').innerHTML = '&#9788;';
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        html.setAttribute('data-manual-theme', 'true');
+        document.getElementById('mode-text').innerHTML = '&#9790; Dark Mode';
+        document.getElementById('toggle-icon').innerHTML = '&#9790;';
+      }
+    }
+  </script>
+</body>
+</html>

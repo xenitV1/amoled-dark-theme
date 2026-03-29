@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>موقع RTL للتجربة</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #ffffff; color: #333333; }
+    nav {
+      background: #f8f9fa; border-bottom: 1px solid #dee2e6;
+      padding: 12px 24px; display: flex; align-items: center; gap: 24px;
+    }
+    nav .logo { font-weight: bold; font-size: 20px; color: #212529; margin-left: auto; }
+    nav a { color: #007bff; text-decoration: none; font-size: 14px; }
+    .layout { display: flex; max-width: 1100px; margin: 24px auto; gap: 24px; padding: 0 24px; }
+    .sidebar {
+      width: 240px; flex-shrink: 0; background: #f0f0f0; border-radius: 8px;
+      padding: 16px; border: 1px solid #dee2e6;
+    }
+    .sidebar h3 { font-size: 15px; color: #212529; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #dee2e6; }
+    .sidebar-item { padding: 8px 12px; font-size: 14px; color: #495057; cursor: pointer; border-radius: 4px; margin-bottom: 2px; }
+    .sidebar-item:hover { background: #e2e6ea; }
+    .sidebar-item.active { background: #ffffff; color: #007bff; font-weight: bold; }
+    .main { flex: 1; }
+    .breadcrumb { font-size: 13px; color: #6c757d; margin-bottom: 16px; }
+    .breadcrumb a { color: #007bff; text-decoration: none; }
+    h1 { color: #212529; font-size: 22px; margin-bottom: 8px; }
+    .subtitle { color: #6c757d; margin-bottom: 24px; font-size: 14px; }
+    .card {
+      background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px;
+      padding: 20px; margin-bottom: 16px;
+    }
+    .card h3 { color: #212529; font-size: 16px; margin-bottom: 8px; }
+    .card p { color: #6c757d; font-size: 14px; line-height: 1.8; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat {
+      background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px;
+      padding: 16px; text-align: center;
+    }
+    .stat .number { font-size: 24px; font-weight: bold; color: #212529; }
+    .stat .label { font-size: 13px; color: #6c757d; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; overflow: hidden; margin-bottom: 24px; }
+    th { background: #f8f9fa; color: #495057; font-size: 13px; font-weight: 600; padding: 12px 16px; text-align: right; border-bottom: 2px solid #dee2e6; }
+    td { padding: 10px 16px; font-size: 14px; color: #495057; border-bottom: 1px solid #e9ecef; text-align: right; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 14px; color: #333333; margin-bottom: 6px; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 10px 12px; border: 1px solid #dee2e6;
+      border-radius: 6px; background: #ffffff; color: #333333;
+      font-size: 14px; direction: rtl; outline: none;
+    }
+    .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+    .btn-primary { background: #007bff; color: #ffffff; }
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 12px;
+    }
+    .badge-success { background: #d4edda; color: #155724; }
+    .badge-warning { background: #fff3cd; color: #856404; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="logo">المتجر العربي</span>
+    <a href="#">الرئيسية</a>
+    <a href="#">المنتجات</a>
+    <a href="#">الطلبات</a>
+    <a href="#">الحساب</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar">
+      <h3>الأقسام</h3>
+      <div class="sidebar-item active">لوحة التحكم</div>
+      <div class="sidebar-item">المنتجات</div>
+      <div class="sidebar-item">الطلبات</div>
+      <div class="sidebar-item">العملاء</div>
+      <div class="sidebar-item">التقارير</div>
+      <div class="sidebar-item">الإعدادات</div>
+    </aside>
+    <div class="main">
+      <div class="breadcrumb">
+        <a href="#">الرئيسية</a> &lsaquo; <a href="#">لوحة التحكم</a> &lsaquo; نظرة عامة
+      </div>
+      <h1>مرحباً بك في لوحة التحكم</h1>
+      <p class="subtitle">هذه صفحة تجريبية بلغة الاتجاه من اليمين إلى اليسار لاختبار توافق الامتداد مع المواقع العربية.</p>
+
+      <div class="stats">
+        <div class="stat"><div class="number">١٬٢٣٤</div><div class="label">إجمالي الطلبات</div></div>
+        <div class="stat"><div class="number">$٥٬٦٧٨</div><div class="label">الإيرادات</div></div>
+        <div class="stat"><div class="number">٨٩</div><div class="label">عملاء جدد</div></div>
+      </div>
+
+      <div class="card">
+        <h3>آخر الأخبار</h3>
+        <p>تم إطلاق النسخة الجديدة من المتجر الإلكتروني مع تحسينات في الأداء وتجربة المستخدم. تم إصلاح المشاكل المعروفة في نظام الدفع وتمت إضافة دعم لطرق دفع جديدة.</p>
+      </div>
+
+      <h2 style="color:#212529;font-size:18px;margin-bottom:12px;">الطلبات الأخيرة</h2>
+      <table>
+        <thead>
+          <tr><th>رقم الطلب</th><th>العميل</th><th>المبلغ</th><th>الحالة</th><th>التاريخ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>#١٠٠١</td><td>أحمد محمد</td><td>$١٥٠</td><td><span class="badge badge-success">مكتمل</span></td><td>٢٠٢٦/٠٣/٢٨</td></tr>
+          <tr><td>#١٠٠٢</td><td>فاطمة علي</td><td>$٧٥</td><td><span class="badge badge-warning">قيد المعالجة</span></td><td>٢٠٢٦/٠٣/٢٧</td></tr>
+          <tr><td>#١٠٠٣</td><td>خالد حسن</td><td>$٢٣٠</td><td><span class="badge badge-success">مكتمل</span></td><td>٢٠٢٦/٠٣/٢٦</td></tr>
+          <tr><td>#١٠٠٤</td><td>نورة سعد</td><td>$٩٥</td><td><span class="badge badge-warning">قيد المعالجة</span></td><td>٢٠٢٦/٠٣/٢٥</td></tr>
+        </tbody>
+      </table>
+
+      <div class="card">
+        <h3>نموذج التواصل</h3>
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" placeholder="أدخل اسمك الكامل">
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" placeholder="example@domain.com">
+        </div>
+        <div class="form-group">
+          <label>الرسالة</label>
+          <textarea rows="3" placeholder="اكتب رسالتك هنا..."></textarea>
+        </div>
+        <button class="btn btn-primary">إرسال الرسالة</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

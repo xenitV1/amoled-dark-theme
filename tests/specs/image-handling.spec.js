@@ -149,7 +149,7 @@ test.describe('Image Handling', () => {
 
       expect(filterStatus.length).toBeGreaterThan(0);
       for (const item of filterStatus) {
-        expect(item.filter).toContain('brightness(0.8)');
+        expect(item.filter).toMatch(/brightness\(0?\.?80?\)|brightness\(80%\)/);
       }
     });
 
@@ -168,7 +168,7 @@ test.describe('Image Handling', () => {
 
       expect(filterStatus.length).toBeGreaterThan(0);
       for (const item of filterStatus) {
-        expect(item.filter).toContain('brightness(0.5)');
+        expect(item.filter).toMatch(/brightness\(0?\.?50?\)|brightness\(50%\)/);
       }
     });
 

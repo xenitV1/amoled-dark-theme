@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Framework Mock (Tailwind-style)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; background: #ffffff; color: #333333; }
+    .bg-white { background: #ffffff; }
+    .bg-gray-50 { background: #f9fafb; }
+    .bg-gray-100 { background: #f3f4f6; }
+    .bg-gray-200 { background: #e5e7eb; }
+    .bg-gray-800 { background: #1f2937; }
+    .bg-blue-500 { background: #3b82f6; }
+    .bg-blue-600 { background: #2563eb; }
+    .bg-green-500 { background: #22c55e; }
+    .bg-green-600 { background: #16a34a; }
+    .bg-red-500 { background: #ef4444; }
+    .bg-yellow-400 { background: #facc15; }
+    .bg-purple-500 { background: #a855f7; }
+    .text-white { color: #ffffff; }
+    .text-gray-100 { color: #f3f4f6; }
+    .text-gray-600 { color: #4b5563; }
+    .text-gray-700 { color: #374151; }
+    .text-gray-800 { color: #1f2937; }
+    .text-gray-900 { color: #111827; }
+    .text-blue-500 { color: #3b82f6; }
+    .text-green-600 { color: #16a34a; }
+    .p-2 { padding: 8px; }
+    .p-4 { padding: 16px; }
+    .p-6 { padding: 24px; }
+    .p-8 { padding: 32px; }
+    .px-4 { padding-left: 16px; padding-right: 16px; }
+    .py-2 { padding-top: 8px; padding-bottom: 8px; }
+    .py-3 { padding-top: 12px; padding-bottom: 12px; }
+    .m-0 { margin: 0; }
+    .mb-2 { margin-bottom: 8px; }
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+    .mb-8 { margin-bottom: 32px; }
+    .mt-4 { margin-top: 16px; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .rounded { border-radius: 4px; }
+    .rounded-lg { border-radius: 8px; }
+    .rounded-full { border-radius: 9999px; }
+    .shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .shadow-lg { box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+    .border { border: 1px solid #e5e7eb; }
+    .text-sm { font-size: 14px; }
+    .text-lg { font-size: 18px; }
+    .text-xl { font-size: 20px; }
+    .text-2xl { font-size: 24px; }
+    .text-4xl { font-size: 36px; }
+    .font-bold { font-weight: bold; }
+    .text-center { text-align: center; }
+    .flex { display: flex; }
+    .grid { display: grid; }
+    .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .gap-4 { gap: 16px; }
+    .gap-6 { gap: 24px; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .max-w-5xl { max-width: 1024px; }
+    .max-w-6xl { max-width: 1152px; }
+    .w-full { width: 100%; }
+    .inline-block { display: inline-block; }
+    .cursor-pointer { cursor: pointer; }
+    .list-none { list-style: none; }
+    .nav { background: #f8f9fa; border-bottom: 1px solid #e5e7eb; }
+    .nav-inner { max-width: 1152px; margin: 0 auto; display: flex; align-items: center; padding: 12px 24px; gap: 32px; }
+    .nav a { color: #4b5563; text-decoration: none; font-size: 14px; }
+    .nav .brand { font-weight: bold; font-size: 20px; color: #111827; }
+    .hero { background: #f3f4f6; padding: 64px 24px; text-align: center; }
+    .card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; }
+    .card img { width: 100%; height: 160px; background: #e5e7eb; border-radius: 6px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; }
+    .pricing-card { background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; padding: 32px; text-align: center; }
+    .pricing-card.featured { border-color: #3b82f6; }
+    .footer { background: #1f2937; color: #f3f4f6; padding: 32px 24px; }
+    .footer-inner { max-width: 1152px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .footer a { color: #9ca3af; text-decoration: none; font-size: 14px; display: block; margin-bottom: 8px; }
+    .footer h4 { margin-bottom: 12px; }
+    table.pricing-table { width: 100%; border-collapse: collapse; background: #ffffff; }
+    table.pricing-table th { background: #f3f4f6; padding: 12px 16px; text-align: left; font-size: 14px; color: #374151; border-bottom: 2px solid #e5e7eb; }
+    table.pricing-table td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; font-size: 14px; color: #4b5563; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <span class="brand">TailwindUI</span>
+      <a href="#">Home</a>
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+      <a href="#" style="margin-left:auto;background:#3b82f6;color:#ffffff;padding:8px 16px;border-radius:6px;text-decoration:none;">Sign Up</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Build faster with modern CSS utilities</h1>
+      <p class="text-lg text-gray-600 mb-8">A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup.</p>
+      <a href="#" class="bg-blue-600 text-white px-4 py-3 rounded-lg inline-block" style="text-decoration:none;">Get Started</a>
+      <a href="#" class="bg-white text-gray-800 border px-4 py-3 rounded-lg inline-block" style="text-decoration:none;margin-left:8px;">View Docs</a>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto p-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Features</h2>
+    <div class="grid grid-cols-3 gap-6 mb-8">
+      <div class="card shadow">
+        <div style="font-size:32px;margin-bottom:8px;color:#3b82f6;">&#9881;</div>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">Utility-First</h3>
+        <p class="text-sm text-gray-600">Build complex components from a constrained set of primitive utilities.</p>
+      </div>
+      <div class="card shadow">
+        <div style="font-size:32px;margin-bottom:8px;color:#22c55e;">&#9733;</div>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">Responsive</h3>
+        <p class="text-sm text-gray-600">Every utility can be conditionally applied at different breakpoints.</p>
+      </div>
+      <div class="card shadow">
+        <div style="font-size:32px;margin-bottom:8px;color:#a855f7;">&#9830;</div>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">State Variants</h3>
+        <p class="text-sm text-gray-600">Style elements on hover, focus, active, and other states easily.</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Pricing</h2>
+    <div class="grid grid-cols-3 gap-6 mb-8">
+      <div class="pricing-card">
+        <h3 class="text-lg font-bold text-gray-800 mb-2">Starter</h3>
+        <div class="text-4xl font-bold text-gray-900 mb-4">$0<span class="text-sm text-gray-600">/mo</span></div>
+        <p class="text-sm text-gray-600 mb-4">Basic features for personal projects</p>
+        <div class="bg-gray-100 text-gray-800 rounded py-2 cursor-pointer" style="border:1px solid #e5e7eb;">Choose Plan</div>
+      </div>
+      <div class="pricing-card featured" style="border-color:#3b82f6;">
+        <div class="bg-blue-500 text-white text-sm rounded-full inline-block px-4 py-2 mb-4">Popular</div>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">Pro</h3>
+        <div class="text-4xl font-bold text-gray-900 mb-4">$29<span class="text-sm text-gray-600">/mo</span></div>
+        <p class="text-sm text-gray-600 mb-4">Everything you need for professional work</p>
+        <div class="bg-blue-600 text-white rounded py-2 cursor-pointer">Choose Plan</div>
+      </div>
+      <div class="pricing-card">
+        <h3 class="text-lg font-bold text-gray-800 mb-2">Enterprise</h3>
+        <div class="text-4xl font-bold text-gray-900 mb-4">$99<span class="text-sm text-gray-600">/mo</span></div>
+        <p class="text-sm text-gray-600 mb-4">Advanced features for large teams</p>
+        <div class="bg-gray-100 text-gray-800 rounded py-2 cursor-pointer" style="border:1px solid #e5e7eb;">Choose Plan</div>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Feature Comparison</h2>
+    <table class="pricing-table mb-8">
+      <thead>
+        <tr><th>Feature</th><th>Starter</th><th>Pro</th><th>Enterprise</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Components</td><td>50+</td><td>200+</td><td>500+</td></tr>
+        <tr><td>Templates</td><td>5</td><td>30</td><td>Unlimited</td></tr>
+        <tr><td>Priority Support</td><td style="color:#ef4444;">&#10007;</td><td style="color:#22c55e;">&#10003;</td><td style="color:#22c55e;">&#10003;</td></tr>
+        <tr><td>Custom Branding</td><td style="color:#ef4444;">&#10007;</td><td style="color:#ef4444;">&#10007;</td><td style="color:#22c55e;">&#10003;</td></tr>
+        <tr><td>API Access</td><td style="color:#ef4444;">&#10007;</td><td style="color:#22c55e;">&#10003;</td><td style="color:#22c55e;">&#10003;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <div class="footer-inner">
+      <div>
+        <h4>TailwindUI</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#">Documentation</a>
+        <a href="#">Components</a>
+        <a href="#">Templates</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Contact</a>
+        <a href="#">Status</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
